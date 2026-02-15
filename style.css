@@ -1171,3 +1171,30 @@
             font-weight: 700;
             box-shadow: 0 0 12px rgba(137,247,254,0.6);
         }
+/* Accessibility Focus Styles */
+.icon:focus-visible,
+.start-button:focus-visible,
+.start-menu-item:focus-visible,
+.taskbar-button:focus-visible,
+.window-button:focus-visible,
+.music-playlist-btn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+    box-shadow: 0 0 8px rgba(137, 247, 254, 0.8);
+    z-index: 10001;
+}
+
+.start-menu-item:focus-visible {
+    background: linear-gradient(90deg, rgba(160, 190, 220, 0.6) 0%, rgba(180, 210, 240, 0.4) 100%);
+    outline-offset: -2px;
+}
+
+.paint-tool:focus-visible,
+.color-option:focus-visible,
+.gallery-item:focus-visible,
+#lockscreen:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+    box-shadow: 0 0 8px rgba(137, 247, 254, 0.8);
+    z-index: 10001;
+}

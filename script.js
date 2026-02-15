@@ -114,6 +114,9 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', 'Restore ' + title);
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
@@ -581,6 +584,22 @@
             }
         }
         
+        // Keyboard Accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const activeElement = document.activeElement;
+                const role = activeElement.getAttribute('role');
+                const isClickable = role === 'button' ||
+                                    role === 'menuitem' ||
+                                    activeElement.classList.contains('taskbar-button');
+
+                if (isClickable) {
+                    e.preventDefault();
+                    activeElement.click();
+                }
+            }
+        });
+
         // Show mobile controls on small screens
         function checkMobileControls() {
             const controls = document.querySelector('.mobile-game-controls');
