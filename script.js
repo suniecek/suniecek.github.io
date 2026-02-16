@@ -658,3 +658,35 @@
                 }
             }
         }
+// Accessibility Improvements
+document.addEventListener('DOMContentLoaded', () => {
+    // Make desktop icons accessible
+    document.querySelectorAll('.icon').forEach(icon => {
+        icon.setAttribute('tabindex', '0');
+        icon.setAttribute('role', 'button');
+        const label = icon.querySelector('.icon-label').textContent;
+        icon.setAttribute('aria-label', label);
+
+        icon.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                icon.click();
+            }
+        });
+    });
+
+    // Make start button accessible
+    const startButton = document.querySelector('.start-button');
+    if (startButton) {
+        startButton.setAttribute('tabindex', '0');
+        startButton.setAttribute('role', 'button');
+        startButton.setAttribute('aria-label', 'Start Menu');
+
+        startButton.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                startButton.click();
+            }
+        });
+    }
+});
