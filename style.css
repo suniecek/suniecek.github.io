@@ -1171,3 +1171,19 @@
             font-weight: 700;
             box-shadow: 0 0 12px rgba(137,247,254,0.6);
         }
+/* Accessibility Focus Styles */
+.icon:focus-visible,
+.start-button:focus-visible,
+.start-menu-item:focus-visible,
+.window-button:focus-visible,
+.taskbar-button:focus-visible,
+.music-playlist-btn:focus-visible,
+.game-button:focus-visible,
+.art-click-here:focus-visible {
+    outline: 2px solid rgba(137, 247, 254, 0.8);
+    outline-offset: 2px;
+}
+
+#lockscreen:focus-visible {
+    outline: none; /* It covers the screen, so focus ring might be weird, but keyboard nav works */
+}

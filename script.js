@@ -114,6 +114,9 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', 'Restore ' + title);
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
@@ -658,3 +661,34 @@
                 }
             }
         }
+// Accessibility: Keyboard Navigation
+document.addEventListener('keydown', function(e) {
+    // Unlock screen with any key if lockscreen is active
+    const lockscreen = document.getElementById('lockscreen');
+    if (lockscreen && !lockscreen.classList.contains('hidden')) {
+        // Trigger the click handler to unlock
+        lockscreen.click();
+        return;
+    }
+
+    // Activate buttons with Enter or Space
+    if (e.key === 'Enter' || e.key === ' ') {
+        const activeElement = document.activeElement;
+        const isButton = activeElement.getAttribute('role') === 'button' ||
+                         activeElement.tagName === 'BUTTON' ||
+                         activeElement.classList.contains('icon') ||
+                         activeElement.classList.contains('start-button') ||
+                         activeElement.classList.contains('start-menu-item') ||
+                         activeElement.classList.contains('window-button') ||
+                         activeElement.classList.contains('taskbar-button') ||
+                         activeElement.classList.contains('art-click-here');
+
+        // Check if it's an input or textarea to avoid preventing default typing behavior
+        const isInput = activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA';
+
+        if (isButton && !isInput) {
+            e.preventDefault();
+            activeElement.click();
+        }
+    }
+});
