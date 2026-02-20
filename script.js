@@ -74,7 +74,22 @@
                 }, 200);
             }
             
- document.getElementById(windowId).classList.add('active');
+ const win = document.getElementById(windowId);
+ win.classList.add('active');
+
+ // Palette 🎨: Ensure accessibility for window buttons
+ win.querySelectorAll('.window-button').forEach(el => {
+ if (!el.hasAttribute('role')) {
+ el.setAttribute('role', 'button');
+ el.setAttribute('tabindex', '0');
+ const text = el.textContent.trim();
+ const onclick = el.getAttribute('onclick') || '';
+ if (text === '_' || onclick.includes('minimize')) el.setAttribute('aria-label', 'Minimize');
+ else if (text === '□' || onclick.includes('maximize')) el.setAttribute('aria-label', 'Maximize');
+ else if (text === '×' || onclick.includes('close')) el.setAttribute('aria-label', 'Close');
+ }
+ });
+
  bringToFront(windowId);
  document.getElementById('startMenu').classList.remove('active');
  
@@ -115,6 +130,8 @@
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
  
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
@@ -658,3 +675,32 @@
                 }
             }
         }
+// Palette 🎨: Accessibility Improvements
+// Initialize accessibility attributes for static elements
+document.addEventListener('DOMContentLoaded', () => {
+    const selectors = ['.icon', '.start-button', '.start-menu-item', '.window-button'];
+
+    selectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+            el.setAttribute('role', 'button');
+            el.setAttribute('tabindex', '0');
+
+            // Add Aria Labels for icon-only buttons
+            if (el.classList.contains('window-button')) {
+                const text = el.textContent.trim();
+                const onclick = el.getAttribute('onclick') || '';
+                if (text === '_' || onclick.includes('minimize')) el.setAttribute('aria-label', 'Minimize');
+                else if (text === '□' || onclick.includes('maximize')) el.setAttribute('aria-label', 'Maximize');
+                else if (text === '×' || onclick.includes('close')) el.setAttribute('aria-label', 'Close');
+            }
+        });
+    });
+});
+
+// Global keyboard handler for div-buttons
+document.addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.getAttribute('role') === 'button') {
+        e.preventDefault();
+        e.target.click();
+    }
+});
