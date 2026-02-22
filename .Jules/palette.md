@@ -1,0 +1,3 @@
+## 2024-05-22 - [Keyboard Accessibility for Desktop UI]
+**Learning:** This "desktop" simulation heavily relied on `div` elements with `onclick` handlers for icons and buttons, rendering them inaccessible to keyboard users.
+**Action:** Implemented a pattern of manually adding `tabindex="0"` and `role="button"` to these interactive `div`s. To avoid cluttering the HTML with `onkeydown` handlers, I established a single global `keydown` listener in `script.js` that intercepts `Enter` and `Space` on focused elements with specific classes (`.icon`, `.start-button`, etc.) and triggers their `click()` method. This keeps the JS logic centralized and the HTML cleaner while ensuring native-like button behavior.

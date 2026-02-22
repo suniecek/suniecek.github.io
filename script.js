@@ -115,6 +115,8 @@
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
+ button.tabIndex = 0;
+ button.setAttribute('role', 'button');
  
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
@@ -658,3 +660,17 @@
                 }
             }
         }
+// Keyboard accessibility for custom buttons
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+        const activeElement = document.activeElement;
+        if (activeElement.classList.contains('icon') ||
+            activeElement.classList.contains('start-button') ||
+            activeElement.classList.contains('start-menu-item') ||
+            activeElement.classList.contains('taskbar-button') ||
+            activeElement.classList.contains('art-click-here')) {
+            e.preventDefault();
+            activeElement.click();
+        }
+    }
+});
