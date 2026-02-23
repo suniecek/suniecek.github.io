@@ -33,7 +33,9 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const menu = document.getElementById('startMenu');
+ menu.classList.toggle('active');
+ document.querySelector('.start-button').setAttribute('aria-expanded', menu.classList.contains('active'));
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +43,7 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
  });
 
@@ -77,6 +80,7 @@
  document.getElementById(windowId).classList.add('active');
  bringToFront(windowId);
  document.getElementById('startMenu').classList.remove('active');
+ document.querySelector('.start-button').setAttribute('aria-expanded', 'false');
  
  // Initialize snail game canvas when game window opens
  if (windowId === 'snailGame') {
@@ -115,6 +119,11 @@
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
+
+ // Accessibility
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', 'Restore ' + title);
  
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
@@ -124,6 +133,22 @@
  
  taskbarButtons.appendChild(button);
  }
+
+ // Global keyboard accessibility for div-buttons
+ document.addEventListener('keydown', function(e) {
+ if (e.key === 'Enter' || e.key === ' ') {
+ const active = document.activeElement;
+ if (active && (
+ active.getAttribute('role') === 'button' ||
+ active.classList.contains('start-button') ||
+ active.classList.contains('taskbar-button') ||
+ active.classList.contains('icon')
+ )) {
+ e.preventDefault();
+ active.click();
+ }
+ }
+ });
 
  function restoreWindow(windowId) {
  const window = document.getElementById(windowId);
