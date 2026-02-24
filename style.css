@@ -1171,3 +1171,13 @@
             font-weight: 700;
             box-shadow: 0 0 12px rgba(137,247,254,0.6);
         }
+/* Accessibility Focus Styles */
+.taskbar-button:focus-visible,
+.start-button:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: -2px;
+    background: linear-gradient(180deg,
+        rgba(140, 190, 240, 0.95) 0%,
+        rgba(100, 150, 200, 0.95) 100%);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
