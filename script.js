@@ -33,7 +33,22 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const menu = document.getElementById('startMenu');
+ const isActive = menu.classList.toggle('active');
+ const startButton = document.querySelector('.start-button');
+ if (startButton) {
+ startButton.setAttribute('aria-expanded', isActive);
+ }
+ }
+
+ const startButton = document.querySelector('.start-button');
+ if (startButton) {
+ startButton.addEventListener('keydown', (e) => {
+ if (e.key === 'Enter' || e.key === ' ') {
+ e.preventDefault();
+ toggleStartMenu();
+ }
+ });
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +56,9 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ if (startButton) {
+ startButton.setAttribute('aria-expanded', 'false');
+ }
  }
  });
 
@@ -116,6 +134,17 @@
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
  
+ // Accessibility additions
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', 'Restore ' + title);
+ button.onkeydown = (e) => {
+ if (e.key === 'Enter' || e.key === ' ') {
+ e.preventDefault();
+ restoreWindow(windowId);
+ }
+ };
+
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
  } else {
