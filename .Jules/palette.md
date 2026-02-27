@@ -1,0 +1,3 @@
+## 2026-02-27 - Custom Controls Keyboard Accessibility
+**Learning:** When mimicking a desktop OS, many interactive controls like taskbar items and custom start buttons are built with `div` elements instead of native buttons. While adding `role="button"` and `tabindex="0"` makes them focusable and identifiable to screen readers, these elements do not natively respond to Enter or Space keys like real buttons do.
+**Action:** Always implement a global keyboard event listener (or individual listeners) for custom controls with `role="button"` to map Enter/Space keys to their respective `.click()` events, ensuring full keyboard accessibility.
