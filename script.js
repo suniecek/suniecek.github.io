@@ -33,7 +33,12 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const menu = document.getElementById('startMenu');
+ const startButton = document.querySelector('.start-button');
+ menu.classList.toggle('active');
+ if (startButton) {
+   startButton.setAttribute('aria-expanded', menu.classList.contains('active'));
+ }
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +46,9 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ if (startButton) {
+   startButton.setAttribute('aria-expanded', 'false');
+ }
  }
  });
 
@@ -74,10 +82,25 @@
                 }, 200);
             }
             
- document.getElementById(windowId).classList.add('active');
+ const windowElement = document.getElementById(windowId);
+ windowElement.classList.add('active');
  bringToFront(windowId);
  document.getElementById('startMenu').classList.remove('active');
  
+ // Apply accessibility to dynamic window buttons
+ const windowButtons = windowElement.querySelectorAll('.window-button');
+ windowButtons.forEach(btn => {
+   btn.setAttribute('role', 'button');
+   btn.setAttribute('tabindex', '0');
+   if (btn.classList.contains('close')) {
+     btn.setAttribute('aria-label', 'Close window');
+   } else if (btn.textContent === '_') {
+     btn.setAttribute('aria-label', 'Minimize window');
+   } else if (btn.textContent === '□') {
+     btn.setAttribute('aria-label', 'Maximize window');
+   }
+ });
+
  // Initialize snail game canvas when game window opens
  if (windowId === 'snailGame') {
  setTimeout(initSnailCanvas, 100);
@@ -114,6 +137,9 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', title);
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
@@ -658,3 +684,29 @@
                 }
             }
         }
+// Global keyboard accessibility listener for div-based buttons
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const activeEl = document.activeElement;
+    if (activeEl && activeEl.getAttribute('role') === 'button') {
+      e.preventDefault();
+      activeEl.click();
+    }
+  }
+});
+
+// Initialize accessibility attributes on static elements
+document.addEventListener('DOMContentLoaded', function() {
+  const buttonElements = document.querySelectorAll('.icon, .start-button, .start-menu-item, .window-button');
+  buttonElements.forEach(el => {
+    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+  });
+
+  const startButton = document.querySelector('.start-button');
+  if (startButton) {
+    startButton.setAttribute('aria-expanded', 'false');
+    startButton.setAttribute('aria-haspopup', 'menu');
+    startButton.setAttribute('aria-controls', 'startMenu');
+  }
+});

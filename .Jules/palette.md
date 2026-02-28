@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessibility for Custom Div-Based Controls
+**Learning:** The application heavily relies on `div` elements acting as interactive desktop controls (e.g., icons, taskbar buttons, start menu items) instead of native `<button>` or `<a>` elements. This pattern necessitates manual injection of ARIA attributes (`role="button"`, `tabindex="0"`) and explicit keyboard event handling (mapping Enter/Space to click events) to ensure these elements are accessible to screen readers and keyboard users.
+**Action:** Always ensure that any new interactive UI component built using non-semantic elements explicitly implements the `role="button"` and `tabindex="0"` attributes and is covered by the global keyboard event listener for triggering clicks.
