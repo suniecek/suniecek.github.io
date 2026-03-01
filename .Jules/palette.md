@@ -1,0 +1,3 @@
+## 2024-03-24 - Accessibility for Custom UI Controls
+**Learning:** The project mimics a desktop OS using non-semantic `div` elements for interactive controls (desktop icons, taskbar buttons, start menu items). Because they are not native interactive elements like `<button>`, they inherently lack keyboard focusability and semantic meaning for screen readers.
+**Action:** Always ensure that custom interactive `div` elements are given `tabindex="0"` and `role="button"` attributes. Furthermore, a global `keydown` event listener is required to map the 'Enter' and 'Space' keys to trigger a click event, ensuring full keyboard navigability for these custom UI components.
