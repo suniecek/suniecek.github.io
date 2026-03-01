@@ -658,3 +658,12 @@
                 }
             }
         }
+// Accessibility: trigger click on Enter/Space for elements with role="button"
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+        if (e.target.getAttribute('role') === 'button') {
+            e.preventDefault();
+            e.target.click();
+        }
+    }
+});
