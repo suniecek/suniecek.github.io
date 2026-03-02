@@ -44,6 +44,17 @@
  }
  });
 
+// Global keyboard accessibility for pseudo-buttons
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+        const activeElement = document.activeElement;
+        if (activeElement && activeElement.getAttribute('role') === 'button') {
+            e.preventDefault(); // Prevent page scroll for spacebar
+            activeElement.click();
+        }
+    }
+});
+
  // Shutdown
  function shutdown() {
  const lockscreen = document.getElementById('lockscreen');
@@ -115,6 +126,8 @@
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
+    button.setAttribute('role', 'button');
+    button.setAttribute('tabindex', '0');
  
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
