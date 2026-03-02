@@ -1,0 +1,3 @@
+## 2026-03-02 - Keyboard Accessibility for Custom Div Buttons
+**Learning:** In highly custom interfaces (like an OS simulation) where interactive elements are built with `<div>` tags and inline `onclick` handlers, native keyboard accessibility is completely absent. Screen readers won't recognize them, and keyboard users cannot navigate or trigger them.
+**Action:** Always inject `tabindex="0"` to enable tab targeting, `role="button"` to expose semantics to assistive tech, and attach a global `keydown` listener mapping 'Enter' and 'Space' (with `preventDefault()`) to the element's `.click()` method. Ensure dynamic elements also receive these attributes upon creation.
