@@ -33,7 +33,10 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const startMenu = document.getElementById('startMenu');
+ const startButton = document.querySelector('.start-button');
+ const isActive = startMenu.classList.toggle('active');
+ startButton.setAttribute('aria-expanded', isActive);
  }
 
  document.addEventListener('click', function(e) {
@@ -41,7 +44,18 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
+ });
+
+ // Keyboard support for role="button"
+ document.addEventListener('keydown', (e) => {
+     if (e.key === 'Enter' || e.key === ' ') {
+         if (e.target.getAttribute('role') === 'button') {
+             e.preventDefault();
+             e.target.click();
+         }
+     }
  });
 
  // Shutdown
@@ -115,9 +129,12 @@
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', `Restore ${title} window`);
  
  if (icon) {
- button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
+ button.innerHTML = `<img src="${icon.src}" alt=""><span>${title}</span>`;
  } else {
  button.innerHTML = `<span>${title}</span>`;
  }
@@ -295,7 +312,15 @@
  }
 
  // Load guestbook on page load
- window.addEventListener('load', loadGuestbookEntries);
+ window.addEventListener('load', () => {
+    loadGuestbookEntries();
+
+    // Accessibility for desktop icons
+    document.querySelectorAll('.icon').forEach(icon => {
+        icon.setAttribute('role', 'button');
+        icon.setAttribute('tabindex', '0');
+    });
+ });
  
  // Open art detail window
  function openArtDetail(artId) {

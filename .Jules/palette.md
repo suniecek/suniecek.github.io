@@ -1,0 +1,3 @@
+## 2024-05-24 - Polyfilling Keyboard Events for Div-Based Buttons
+**Learning:** This repository extensively uses `div` elements to mimic desktop OS interactive controls (desktop icons, taskbar buttons, start menu) rather than native `<button>` tags, leading to widespread missing keyboard interaction support.
+**Action:** Implemented a global `keydown` event listener mapping `Enter` and `Space` keys to `element.click()` for all elements with `role="button"`. This reusable pattern efficiently restores native keyboard functionality across all custom interactive elements without needing to attach individual keydown listeners to every dynamically created `div`.
