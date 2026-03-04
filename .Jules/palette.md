@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessibility Enhancements for Custom Desktop OS
+**Learning:** In highly custom interfaces mimicking desktop environments (like Windows 95/98), interactive elements are often implemented as `div`s rather than semantic `<button>`s. This removes native keyboard support and ARIA states, making the interface completely inaccessible to screen readers and keyboard-only users.
+**Action:** Always ensure that custom `div`-based interactive elements (like desktop icons, start buttons, window controls, and taskbar items) are augmented with `role="button"`, `tabindex="0"`, appropriate `aria-label` or `aria-expanded` attributes, and a global keyboard listener mapping Enter/Space to click events to restore native-like accessibility behavior.
