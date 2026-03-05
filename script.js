@@ -114,6 +114,8 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
@@ -512,6 +514,14 @@
  if (highScoreEl) highScoreEl.textContent = highScore;
  }
  }
+
+ // Global keyboard navigation for buttons
+ document.addEventListener('keydown', (e) => {
+ if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.getAttribute('role') === 'button') {
+ e.preventDefault();
+ document.activeElement.click();
+ }
+ });
 
  // Keyboard controls
  document.addEventListener('keydown', (e) => {
