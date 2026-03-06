@@ -33,7 +33,11 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const menu = document.getElementById('startMenu');
+ const startButton = document.querySelector('.start-button');
+ menu.classList.toggle('active');
+ const isActive = menu.classList.contains('active');
+ startButton.setAttribute('aria-expanded', isActive);
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +45,7 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
  });
 
@@ -114,6 +119,9 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.role = 'button';
+ button.tabIndex = 0;
+ button.setAttribute('aria-label', `Restore ${title} window`);
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
@@ -512,6 +520,14 @@
  if (highScoreEl) highScoreEl.textContent = highScore;
  }
  }
+
+ // Global keyboard support for custom buttons
+ document.addEventListener('keydown', (e) => {
+ if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.getAttribute('role') === 'button') {
+ e.preventDefault();
+ document.activeElement.click();
+ }
+ });
 
  // Keyboard controls
  document.addEventListener('keydown', (e) => {
