@@ -1,0 +1,3 @@
+## 2024-05-24 - Desktop OS UI Accessibility Pattern
+**Learning:** The application uses a custom desktop OS interface built entirely with non-semantic `<div>` elements (icons, taskbar, start menu) that lack native keyboard focus and activation. Relying solely on `onclick` handlers breaks keyboard navigation completely.
+**Action:** For all interactive desktop components (`.icon`, `.window-button`, `.start-button`), dynamically inject `role="button"` and `tabindex="0"` on creation or DOMContentLoaded, and use a single global `keydown` listener for `Enter`/`Space` mapped to `.click()` to preserve the existing DOM structure without adding custom CSS.
