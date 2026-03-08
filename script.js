@@ -33,7 +33,11 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const startMenu = document.getElementById('startMenu');
+ const startButton = document.querySelector('.start-button');
+ startMenu.classList.toggle('active');
+ const isActive = startMenu.classList.contains('active');
+ startButton.setAttribute('aria-expanded', isActive.toString());
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +45,7 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
  });
 
@@ -114,6 +119,9 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', `Restore ${title}`);
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
@@ -658,3 +666,22 @@
                 }
             }
         }
+// Initialize accessibility for interactive elements
+document.addEventListener('DOMContentLoaded', () => {
+    const interactiveElements = document.querySelectorAll('.icon, .start-button, .window-button, .start-menu-item');
+    interactiveElements.forEach(el => {
+        if (!el.hasAttribute('role')) el.setAttribute('role', 'button');
+        if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+    });
+});
+
+// Global keyboard interaction for elements with role="button"
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        const activeElement = document.activeElement;
+        if (activeElement && activeElement.getAttribute('role') === 'button') {
+            e.preventDefault();
+            activeElement.click();
+        }
+    }
+});
