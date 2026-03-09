@@ -33,7 +33,10 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const menu = document.getElementById('startMenu');
+ const startButton = document.querySelector('.start-button');
+ menu.classList.toggle('active');
+ startButton.setAttribute('aria-expanded', menu.classList.contains('active') ? 'true' : 'false');
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +44,7 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
  });
 
@@ -114,6 +118,9 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', `Restore ${title}`);
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
@@ -515,6 +522,12 @@
 
  // Keyboard controls
  document.addEventListener('keydown', (e) => {
+ // Generic keyboard accessibility for custom buttons
+ if ((e.key === 'Enter' || e.key === ' ') && e.target.getAttribute('role') === 'button') {
+ e.preventDefault();
+ e.target.click();
+ }
+
  if (!gameRunning || gamePaused) return;
  
  switch(e.key) {
