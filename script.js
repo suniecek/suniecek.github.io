@@ -33,7 +33,12 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const startMenu = document.getElementById('startMenu');
+ const startButton = document.querySelector('.start-button');
+ startMenu.classList.toggle('active');
+
+ const isActive = startMenu.classList.contains('active');
+ startButton.setAttribute('aria-expanded', isActive);
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +46,7 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
  });
 
@@ -114,6 +120,8 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
@@ -515,6 +523,16 @@
 
  // Keyboard controls
  document.addEventListener('keydown', (e) => {
+ // Add support for activating buttons with Enter or Space
+ if (e.key === 'Enter' || e.key === ' ') {
+ const activeElement = document.activeElement;
+ if (activeElement && activeElement.getAttribute('role') === 'button') {
+ e.preventDefault();
+ activeElement.click();
+ return;
+ }
+ }
+
  if (!gameRunning || gamePaused) return;
  
  switch(e.key) {
