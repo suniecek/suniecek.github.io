@@ -194,10 +194,12 @@
  max-width: 150px;
  }
 
- .taskbar-button:hover {
+ .taskbar-button:hover, .taskbar-button:focus-visible {
  background: linear-gradient(180deg, 
  rgba(120, 170, 220, 0.95) 0%, 
  rgba(80, 130, 180, 0.95) 100%);
+ outline: 2px solid white;
+ outline-offset: -2px;
  }
 
  .taskbar-button.active {
@@ -320,9 +322,11 @@
  border-radius: 3px;
  }
 
- .icon:hover {
+ .icon:hover, .icon:focus-visible {
  background: rgba(255, 255, 255, 0.15);
  backdrop-filter: blur(10px);
+ outline: 2px solid white;
+ outline-offset: 2px;
  }
 
  .icon-image {
@@ -480,10 +484,12 @@
  image-rendering: pixelated;
  }
 
- .start-button:hover {
+ .start-button:hover, .start-button:focus-visible {
  background: linear-gradient(180deg, 
  rgba(120, 170, 220, 0.95) 0%, 
  rgba(80, 130, 180, 0.95) 100%);
+ outline: 2px solid white;
+ outline-offset: -2px;
  }
 
  .start-button:active {
@@ -532,10 +538,12 @@
  image-rendering: pixelated;
  }
 
- .start-menu-item:hover {
+ .start-menu-item:hover, .start-menu-item:focus-visible {
  background: linear-gradient(90deg, 
  rgba(160, 190, 220, 0.6) 0%, 
  rgba(180, 210, 240, 0.4) 100%);
+ outline: 2px solid white;
+ outline-offset: -2px;
  }
 
  .start-menu-item:last-child {
