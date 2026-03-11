@@ -115,6 +115,8 @@
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
+ button.tabIndex = 0;
+ button.setAttribute('role', 'button');
  
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
@@ -515,6 +517,12 @@
 
  // Keyboard controls
  document.addEventListener('keydown', (e) => {
+ // Global keyboard navigation for interactive elements
+ if ((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.getAttribute('role') === 'button') {
+ e.preventDefault();
+ document.activeElement.click();
+ }
+
  if (!gameRunning || gamePaused) return;
  
  switch(e.key) {
