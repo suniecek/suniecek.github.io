@@ -33,7 +33,10 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const startMenu = document.getElementById('startMenu');
+ const startButton = document.querySelector('.start-button');
+ const isActive = startMenu.classList.toggle('active');
+ startButton.setAttribute('aria-expanded', isActive);
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +44,7 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
  });
 
@@ -114,10 +118,13 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', `Restore ${title} window`);
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
- button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
+ button.innerHTML = `<img src="${icon.src}" alt=""><span>${title}</span>`;
  } else {
  button.innerHTML = `<span>${title}</span>`;
  }
@@ -295,8 +302,39 @@
  }
 
  // Load guestbook on page load
- window.addEventListener('load', loadGuestbookEntries);
+ window.addEventListener('load', () => {
+   loadGuestbookEntries();
+   initAccessibility();
+ });
  
+ // Initialize accessibility
+ function initAccessibility() {
+   const interactiveSelectors = ['.icon', '.start-button', '.window-button', '.start-menu-item'];
+   interactiveSelectors.forEach(selector => {
+     document.querySelectorAll(selector).forEach(el => {
+       if (!el.hasAttribute('role')) el.setAttribute('role', 'button');
+       if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+     });
+   });
+ }
+
+ // Global keyboard accessibility for pseudo-buttons
+ document.addEventListener('keydown', function(e) {
+   if (e.key === 'Enter' || e.key === ' ') {
+     const activeElement = document.activeElement;
+     const isPseudoButton = activeElement.classList.contains('icon') ||
+                            activeElement.classList.contains('start-button') ||
+                            activeElement.classList.contains('window-button') ||
+                            activeElement.classList.contains('start-menu-item') ||
+                            activeElement.classList.contains('taskbar-button');
+
+     if (isPseudoButton) {
+       e.preventDefault();
+       activeElement.click();
+     }
+   }
+ });
+
  // Open art detail window
  function openArtDetail(artId) {
  openWindow('artDetail_' + artId);
