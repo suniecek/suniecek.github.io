@@ -1,0 +1,3 @@
+## 2024-05-24 - Custom Elements Require Global Keyboard Mapping
+**Learning:** This app heavily relies on custom interactive elements (e.g., `div`s with `.icon`, `.start-button` classes) instead of native `<button>`s, which breaks standard keyboard interaction (Enter/Space).
+**Action:** When adding keyboard support to custom `div`-based components, apply `role="button"` and `tabindex="0"`, then utilize a global `keydown` event listener to proxy `Enter` and `Space` keys to a `click()` event on the focused element. This avoids having to rewrite the underlying HTML structure or add redundant event listeners to every element.
