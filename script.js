@@ -33,7 +33,10 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const menu = document.getElementById('startMenu');
+ const startButton = document.querySelector('.start-button');
+ menu.classList.toggle('active');
+ startButton.setAttribute('aria-expanded', menu.classList.contains('active'));
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +44,7 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
  });
 
@@ -114,6 +118,9 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('role', 'button');
+ button.setAttribute('aria-label', title);
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
@@ -658,3 +665,31 @@
                 }
             }
         }
+
+window.addEventListener('load', () => {
+    // Inject accessibility attributes
+    const buttons = document.querySelectorAll('.icon, .start-button, .start-menu-item, .window-button, #lockscreen');
+    buttons.forEach(btn => {
+        btn.setAttribute('tabindex', '0');
+        btn.setAttribute('role', 'button');
+
+        // Add specific aria-labels for window controls
+        if (btn.classList.contains('window-button')) {
+            const text = btn.textContent.trim();
+            if (text === '_') btn.setAttribute('aria-label', 'Minimize');
+            else if (text === '□') btn.setAttribute('aria-label', 'Maximize');
+            else if (text === '×') btn.setAttribute('aria-label', 'Close');
+        }
+    });
+});
+
+// Keyboard accessibility mapping
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        const activeElement = document.activeElement;
+        if (activeElement && activeElement.getAttribute('role') === 'button') {
+            e.preventDefault(); // Prevent default scroll down with Space
+            activeElement.click();
+        }
+    }
+});
