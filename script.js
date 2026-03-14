@@ -33,7 +33,12 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const menu = document.getElementById('startMenu');
+ menu.classList.toggle('active');
+ const startButton = document.querySelector('.start-button');
+ if (startButton) {
+ startButton.setAttribute('aria-expanded', menu.classList.contains('active'));
+ }
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +46,9 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ if (startButton) {
+ startButton.setAttribute('aria-expanded', 'false');
+ }
  }
  });
 
@@ -114,7 +122,16 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', title);
  button.onclick = () => restoreWindow(windowId);
+ button.onkeydown = (e) => {
+ if (e.key === 'Enter' || e.key === ' ') {
+ e.preventDefault();
+ button.click();
+ }
+ };
  
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
