@@ -1,0 +1,4 @@
+
+## 2024-11-20 - Interactive Div Accessibility
+**Learning:** When using `div` elements to simulate desktop OS interactive controls (like taskbar buttons and start menus), they inherently lack native keyboard accessibility and screen reader support. It is critical to explicitly assign ARIA roles (`role="button"`), keyboard navigability (`tabindex="0"`), and clear focus indicators (`:focus-visible`). Additionally, dynamic states like `aria-expanded` must be manually toggled via JavaScript to accurately reflect the UI state.
+**Action:** Always ensure custom interactive components, especially those built with non-semantic elements like `div`s, have explicit ARIA attributes, keyboard event handlers mapping Enter/Space to click, and distinct `:focus-visible` styles to maintain accessibility parity with native elements.
