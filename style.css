@@ -645,6 +645,24 @@
  box-shadow: 0 0 5px rgba(80, 144, 192, 0.3);
  }
 
+ .guestbook-form input[aria-invalid="true"],
+ .guestbook-form textarea[aria-invalid="true"] {
+ border-color: #cc0000;
+ box-shadow: 0 0 5px rgba(204, 0, 0, 0.3);
+ }
+
+ .guestbook-error {
+ color: #cc0000;
+ font-size: 12px;
+ margin-bottom: 10px;
+ display: none;
+ font-weight: bold;
+ }
+
+ .guestbook-error.active {
+ display: block;
+ }
+
  .guestbook-form button {
  background: linear-gradient(180deg, #6090c0 0%, #4070a0 100%);
  color: white;
