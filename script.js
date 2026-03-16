@@ -33,7 +33,12 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const menu = document.getElementById('startMenu');
+ menu.classList.toggle('active');
+ const startBtn = document.querySelector('.start-button');
+ if(startBtn) {
+   startBtn.setAttribute('aria-expanded', menu.classList.contains('active'));
+ }
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +46,7 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
  });
 
@@ -115,6 +121,9 @@
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', `Restore ${title} window`);
  
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
@@ -658,3 +667,14 @@
                 }
             }
         }
+
+// Global keyboard accessibility for interactive elements
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const target = e.target;
+    if (target.getAttribute('role') === 'button' || target.classList.contains('icon') || target.classList.contains('start-menu-item') || target.classList.contains('window-button')) {
+      e.preventDefault();
+      target.click();
+    }
+  }
+});
