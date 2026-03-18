@@ -113,8 +113,17 @@
  
  const button = document.createElement('div');
  button.className = 'taskbar-button';
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', title);
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
+ button.addEventListener('keydown', (e) => {
+   if (e.key === 'Enter' || e.key === ' ') {
+     e.preventDefault();
+     button.click();
+   }
+ });
  
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
