@@ -1171,3 +1171,9 @@
             font-weight: 700;
             box-shadow: 0 0 12px rgba(137,247,254,0.6);
         }
+
+.start-button:focus-visible,
+.taskbar-button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
