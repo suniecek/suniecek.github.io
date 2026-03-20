@@ -1,3 +1,17 @@
+
+// Accessibility: Add keyboard support (Enter/Space) for buttons
+document.addEventListener('DOMContentLoaded', () => {
+    const clickableElements = document.querySelectorAll('.window-button, .start-button, .icon, .start-menu-item');
+    clickableElements.forEach(el => {
+        el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                el.click();
+            }
+        });
+    });
+});
+
 // Clock
  function updateClock() {
  const now = new Date();
@@ -114,7 +128,16 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.role = 'button';
+ button.tabIndex = 0;
+ button.setAttribute('aria-label', title);
  button.onclick = () => restoreWindow(windowId);
+ button.onkeydown = (e) => {
+ if (e.key === 'Enter' || e.key === ' ') {
+ e.preventDefault();
+ restoreWindow(windowId);
+ }
+ };
  
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
