@@ -1171,3 +1171,17 @@
             font-weight: 700;
             box-shadow: 0 0 12px rgba(137,247,254,0.6);
         }
+
+ /* Focus visible states for accessibility */
+ .icon:focus-visible,
+ .start-button:focus-visible,
+ .taskbar-button:focus-visible,
+ .window-button:focus-visible,
+ .start-menu-item:focus-visible,
+ .art-click-here:focus-visible,
+ .game-button:focus-visible,
+ .music-playlist-btn:focus-visible {
+ outline: 2px solid #fff;
+ outline-offset: 2px;
+ box-shadow: 0 0 0 4px #5090c0;
+ }
