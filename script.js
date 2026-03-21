@@ -33,7 +33,12 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const menu = document.getElementById('startMenu');
+ const button = document.querySelector('.start-button');
+ const isActive = menu.classList.toggle('active');
+ if (button) {
+ button.setAttribute('aria-expanded', isActive);
+ }
  }
 
  document.addEventListener('click', function(e) {
@@ -41,6 +46,7 @@
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
  });
 
@@ -112,6 +118,9 @@
  const icon = window.querySelector('.window-title img');
  
  const button = document.createElement('div');
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.setAttribute('aria-label', 'Restore ' + title);
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
@@ -559,6 +568,16 @@
  setTimeout(() => {
  loadingScreen.classList.remove('active');
  loadingScreen.classList.remove('hidden');
+
+      // Accessibility: Initialize attributes for custom custom interactive elements
+      document.querySelectorAll('.icon, .start-button, .window-button, .start-menu-item').forEach(el => {
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+        if (!el.hasAttribute('aria-label') && el.textContent.trim()) {
+          el.setAttribute('aria-label', el.textContent.trim());
+        }
+      });
+      document.querySelector('.start-button')?.setAttribute('aria-expanded', 'false');
  }, 500);
  }, 500);
  } else {
@@ -658,3 +677,18 @@
                 }
             }
         }
+
+ // Global keydown listener for accessibility on custom div buttons
+ document.addEventListener('keydown', function(e) {
+ const target = e.target;
+ const isCustomButton = target.classList.contains('icon') ||
+ target.classList.contains('start-button') ||
+ target.classList.contains('taskbar-button') ||
+ target.classList.contains('window-button') ||
+ target.classList.contains('start-menu-item');
+
+ if (isCustomButton && (e.key === 'Enter' || e.key === ' ')) {
+ e.preventDefault(); // Prevent scrolling on Space
+ target.click();
+ }
+ });
