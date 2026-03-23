@@ -1171,3 +1171,10 @@
             font-weight: 700;
             box-shadow: 0 0 12px rgba(137,247,254,0.6);
         }
+
+/* Keyboard accessibility */
+[role="button"]:focus-visible,
+button:focus-visible {
+  outline: 2px dashed #000;
+  outline-offset: 2px;
+}

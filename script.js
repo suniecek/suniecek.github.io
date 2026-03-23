@@ -658,3 +658,14 @@
                 }
             }
         }
+
+// Handle keyboard events for custom buttons
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const target = e.target;
+    if (target.getAttribute('role') === 'button') {
+      e.preventDefault(); // Prevent default page scrolling for space
+      target.click(); // Trigger the click event
+    }
+  }
+});
