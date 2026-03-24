@@ -206,6 +206,14 @@
  localStorage.setItem('guestbookEntries', JSON.stringify(entries));
  }
 
+ const guestMessageInput = document.getElementById('guestMessage');
+ const guestMessageCount = document.getElementById('guestMessageCount');
+ if (guestMessageInput && guestMessageCount) {
+ guestMessageInput.addEventListener('input', function() {
+ guestMessageCount.textContent = `${this.value.length}/500 characters`;
+ });
+ }
+
  function loadGuestbookEntries() {
  const entries = JSON.parse(localStorage.getItem('guestbookEntries') || '[]');
  const container = document.getElementById('guestbookEntries');

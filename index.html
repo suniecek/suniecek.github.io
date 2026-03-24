@@ -176,7 +176,8 @@
  <div class="guestbook-form">
  <h3>sign my guestbook! </h3>
  <input type="text" id="guestName" placeholder="your name" maxlength="50">
- <textarea id="guestMessage" placeholder="leave a message..." rows="3" maxlength="500"></textarea>
+ <textarea id="guestMessage" placeholder="leave a message..." rows="3" maxlength="500" aria-describedby="guestMessageCount"></textarea>
+ <div id="guestMessageCount" class="entry-date">0/500 characters</div>
  <button onclick="addGuestbookEntry()">sign! ✍️</button>
  </div>
  <div class="guestbook-entries" id="guestbookEntries">
