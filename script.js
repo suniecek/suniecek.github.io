@@ -1,3 +1,18 @@
+
+// A11y Helper
+function setupA11yBtn(el, label) {
+  if (!el) return;
+  el.setAttribute('role', 'button');
+  el.setAttribute('tabindex', '0');
+  if (label) el.setAttribute('aria-label', label);
+  el.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      el.click();
+    }
+  });
+}
+
 // Clock
  function updateClock() {
  const now = new Date();
@@ -123,6 +138,8 @@
  }
  
  taskbarButtons.appendChild(button);
+
+ setupA11yBtn(button, 'Restore ' + title);
  }
 
  function restoreWindow(windowId) {
@@ -658,3 +675,22 @@
                 }
             }
         }
+
+// Initialize A11y on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+  setupA11yBtn(document.getElementById('lockscreen'), 'Unlock screen');
+  document.querySelectorAll('.icon').forEach(icon => setupA11yBtn(icon, icon.querySelector('.icon-label')?.textContent));
+  setupA11yBtn(document.querySelector('.start-button'), 'Start Menu');
+  document.querySelectorAll('.start-menu-item').forEach(item => setupA11yBtn(item, item.textContent.trim()));
+  document.querySelectorAll('.art-click-here').forEach(btn => setupA11yBtn(btn, 'Open Art Gallery'));
+
+  // Existing windows
+  document.querySelectorAll('.window').forEach(win => {
+    const minimizeBtn = win.querySelector('.window-button:nth-child(1)');
+    const maximizeBtn = win.querySelector('.window-button:nth-child(2)');
+    const closeBtn = win.querySelector('.window-button.close');
+    setupA11yBtn(minimizeBtn, 'Minimize');
+    setupA11yBtn(maximizeBtn, 'Maximize');
+    setupA11yBtn(closeBtn, 'Close');
+  });
+});
