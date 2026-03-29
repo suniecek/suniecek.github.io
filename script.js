@@ -169,10 +169,21 @@
  const name = document.getElementById('guestName').value.trim();
  const message = document.getElementById('guestMessage').value.trim();
 
+ const errorContainer = document.getElementById('guestbookError');
+ const nameInput = document.getElementById('guestName');
+ const msgInput = document.getElementById('guestMessage');
+
  if (!name || !message) {
- alert('please fill in both fields!');
+ nameInput.setAttribute('aria-invalid', !name ? 'true' : 'false');
+ msgInput.setAttribute('aria-invalid', !message ? 'true' : 'false');
+ errorContainer.textContent = 'please fill in both fields!';
+ errorContainer.style.display = 'block';
  return;
  }
+
+ errorContainer.style.display = 'none';
+ nameInput.removeAttribute('aria-invalid');
+ msgInput.removeAttribute('aria-invalid');
 
  const entry = document.createElement('div');
  entry.className = 'guestbook-entry';
