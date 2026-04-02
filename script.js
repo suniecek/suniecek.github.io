@@ -114,6 +114,8 @@
  const button = document.createElement('div');
  button.className = 'taskbar-button';
  button.id = 'taskbar-' + windowId;
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
  button.onclick = () => restoreWindow(windowId);
  
  if (icon) {
@@ -658,3 +660,41 @@
                 }
             }
         }
+
+
+// A11y enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    const interactiveSelectors = [
+        '.icon', '.start-button', '.window-button',
+        '.start-menu-item', '.paint-tool', '.color-option',
+        '#lockscreen', '.gallery-item'
+    ];
+
+    interactiveSelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+            el.setAttribute('role', 'button');
+            el.setAttribute('tabindex', '0');
+
+            // Add specific aria-labels to window buttons based on their text content
+            if (el.classList.contains('window-button')) {
+                const text = el.textContent.trim();
+                if (text === '_') el.setAttribute('aria-label', 'Minimize');
+                else if (text === '□') el.setAttribute('aria-label', 'Maximize');
+                else if (text === '×') el.setAttribute('aria-label', 'Close');
+            }
+        });
+    });
+
+    // Add global keydown listener to trigger click on Enter or Space
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const activeElement = document.activeElement;
+            if (activeElement && (activeElement.getAttribute('role') === 'button' || activeElement.tagName.toLowerCase() === 'button')) {
+                if (e.key === ' ') {
+                    e.preventDefault(); // Prevent page scrolling when Space is pressed
+                }
+                activeElement.click();
+            }
+        }
+    });
+});
