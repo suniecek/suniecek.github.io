@@ -294,6 +294,13 @@
  ctx.moveTo(x, y);
  }
 
+
+ // Guestbook character counter
+ document.getElementById('guestMessage').addEventListener('input', function() {
+ const currentLength = this.value.length;
+ document.getElementById('guestMessageCounter').textContent = currentLength + '/500 characters';
+ });
+
  // Load guestbook on page load
  window.addEventListener('load', loadGuestbookEntries);
  
