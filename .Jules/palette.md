@@ -1,0 +1,3 @@
+## 2024-04-03 - Guestbook Character Limits and Screen Readers
+**Learning:** Adding `aria-live="polite"` to a dynamic character counter that updates on every keystroke can sometimes be excessively chatty for screen reader users, depending on their settings. While acceptable for a micro-UX change, best practice is often to only announce when approaching the maximum limit.
+**Action:** In future implementations involving character limit counters, consider adding logic to only update the visually hidden `aria-live` region or switch it on when the user approaches 80-90% of the maximum allowed characters, rather than announcing every single character typed.
