@@ -1,0 +1,3 @@
+## 2024-03-24 - Custom interactive elements without proper semantics
+**Learning:** This app heavily relies on `<div>` elements styled as buttons (e.g. `.icon`, `.start-button`, `.taskbar-button`, `.window-button`) without native semantic roles, `tabindex`, or keyboard event handlers. This is likely an intentional design choice for the "desktop OS" feel but significantly hurts keyboard and screen reader accessibility.
+**Action:** When working on this app, always ensure these custom interactive divs are upgraded with `role="button"`, `tabindex="0"`, `aria-label` (if icon-only or visually ambiguous), and proper keydown handlers for Space/Enter to activate them like native buttons.
