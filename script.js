@@ -166,11 +166,29 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+ const nameInput = document.getElementById('guestName');
+ const messageInput = document.getElementById('guestMessage');
+ const name = nameInput.value.trim();
+ const message = messageInput.value.trim();
+ const errorContainer = document.getElementById('guestbookError');
+
+ // Reset error states
+ errorContainer.textContent = '';
+ nameInput.removeAttribute('aria-invalid');
+ nameInput.style.borderColor = '';
+ messageInput.removeAttribute('aria-invalid');
+ messageInput.style.borderColor = '';
 
  if (!name || !message) {
- alert('please fill in both fields!');
+ errorContainer.textContent = 'Please fill in both fields!';
+ if (!name) {
+ nameInput.setAttribute('aria-invalid', 'true');
+ nameInput.style.borderColor = '#ff6b6b';
+ }
+ if (!message) {
+ messageInput.setAttribute('aria-invalid', 'true');
+ messageInput.style.borderColor = '#ff6b6b';
+ }
  return;
  }
 
@@ -192,6 +210,8 @@
 
  document.getElementById('guestName').value = '';
  document.getElementById('guestMessage').value = '';
+ // Focus the first input after successful submission
+ document.getElementById('guestName').focus();
  }
 
  function escapeHtml(text) {
