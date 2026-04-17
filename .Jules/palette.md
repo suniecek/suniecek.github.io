@@ -1,0 +1,3 @@
+## 2024-05-18 - Replacing Legacy Alert Validations
+**Learning:** Legacy `alert()` validations severely block UI flow and screen readers. When replacing them in restrictive environments with "no custom CSS" boundaries, inline error containers with `role="alert"`, `aria-live="assertive"`, and dynamically applied `aria-invalid="true"` (paired with inline JS error borders) offer a highly accessible and usable alternative.
+**Action:** Use inline error containers to display field-specific validation errors and rely on JS to apply accessible error states directly to inputs, rather than creating new custom CSS classes.
