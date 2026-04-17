@@ -166,11 +166,38 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+ const nameInput = document.getElementById('guestName');
+ const messageInput = document.getElementById('guestMessage');
+ const name = nameInput.value.trim();
+ const message = messageInput.value.trim();
+ const errorContainer = document.getElementById('guestbookError');
+
+ // Clear previous errors
+ errorContainer.style.display = 'none';
+ nameInput.style.border = '';
+ nameInput.removeAttribute('aria-invalid');
+ messageInput.style.border = '';
+ messageInput.removeAttribute('aria-invalid');
 
  if (!name || !message) {
- alert('please fill in both fields!');
+ let errorText = 'Please fill in ';
+ if (!name && !message) {
+ errorText += 'both fields!';
+ nameInput.style.border = '2px solid #c04040';
+ nameInput.setAttribute('aria-invalid', 'true');
+ messageInput.style.border = '2px solid #c04040';
+ messageInput.setAttribute('aria-invalid', 'true');
+ } else if (!name) {
+ errorText += 'your name!';
+ nameInput.style.border = '2px solid #c04040';
+ nameInput.setAttribute('aria-invalid', 'true');
+ } else {
+ errorText += 'your message!';
+ messageInput.style.border = '2px solid #c04040';
+ messageInput.setAttribute('aria-invalid', 'true');
+ }
+ errorContainer.textContent = errorText;
+ errorContainer.style.display = 'block';
  return;
  }
 
@@ -192,6 +219,12 @@
 
  document.getElementById('guestName').value = '';
  document.getElementById('guestMessage').value = '';
+ // Ensure errors are cleared on success
+ errorContainer.style.display = 'none';
+ nameInput.style.border = '';
+ nameInput.removeAttribute('aria-invalid');
+ messageInput.style.border = '';
+ messageInput.removeAttribute('aria-invalid');
  }
 
  function escapeHtml(text) {
