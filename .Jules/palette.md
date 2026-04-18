@@ -1,0 +1,3 @@
+## 2024-04-18 - Replacing Blocking Alerts with Accessible Validation
+**Learning:** Using `alert()` for form validation creates a blocking, inaccessible experience. Screen readers often don't provide adequate context for alerts relative to the form fields, and they completely block interaction until dismissed.
+**Action:** Replace `alert()` validations with inline error containers using `role="alert"` and `aria-live="assertive"`. Concurrently, apply `aria-invalid="true"` to the specific inputs failing validation to provide clear programmatic linkage for screen reader users, matching the visual error state (e.g., red borders).
