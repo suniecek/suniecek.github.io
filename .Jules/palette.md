@@ -1,0 +1,3 @@
+## 2024-04-19 - Inline Validation for Browser Alerts
+**Learning:** Legacy browser `alert()` dialogs in older web applications act as blocking operations that provide poor UX and break flow, especially in visually customized interfaces like desktop OS mimics. Replacing them with inline validation containing `role="alert"` and `aria-live="assertive"` preserves the interface's style while dramatically improving screen reader accessibility and user flow.
+**Action:** When auditing forms, actively look for and replace blocking `alert()` calls with inline error messages and `aria-invalid` attributes on the offending inputs.
