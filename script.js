@@ -192,6 +192,8 @@
 
  document.getElementById('guestName').value = '';
  document.getElementById('guestMessage').value = '';
+ const counter = document.getElementById('guestMessageCounter');
+ if (counter) counter.textContent = '0 / 500';
  }
 
  function escapeHtml(text) {
@@ -658,3 +660,13 @@
                 }
             }
         }
+
+document.addEventListener('DOMContentLoaded', () => {
+ const guestMessage = document.getElementById('guestMessage');
+ const guestMessageCounter = document.getElementById('guestMessageCounter');
+ if (guestMessage && guestMessageCounter) {
+ guestMessage.addEventListener('input', () => {
+ guestMessageCounter.textContent = `${guestMessage.value.length} / 500`;
+ });
+ }
+});
