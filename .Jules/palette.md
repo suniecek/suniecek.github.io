@@ -1,0 +1,3 @@
+## 2025-04-23 - Add Character Counter to Guestbook Textarea
+**Learning:** Adding `aria-label` attributes to visually labeled form controls without explicit `<label>` elements provides essential screen reader support. Additionally, using `aria-describedby` to link a character counter element to a text input ensures screen reader users are dynamically informed of character constraints while typing. This pattern works exceptionally well for inputs lacking native labels while strictly avoiding the need for `display: none` labels.
+**Action:** Always prefer `aria-label` to provide missing labels dynamically. Always link helper text or counters via `aria-describedby` to the related interactive element to preserve accessibility context.
