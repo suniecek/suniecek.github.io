@@ -116,6 +116,15 @@
  button.id = 'taskbar-' + windowId;
  button.onclick = () => restoreWindow(windowId);
  
+ button.setAttribute('role', 'button');
+ button.setAttribute('tabindex', '0');
+ button.addEventListener('keydown', (e) => {
+ if (e.key === 'Enter' || e.key === ' ') {
+ e.preventDefault();
+ button.click();
+ }
+ });
+
  if (icon) {
  button.innerHTML = `<img src="${icon.src}"><span>${title}</span>`;
  } else {
@@ -658,3 +667,34 @@
                 }
             }
         }
+
+// Accessibility Enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    const makeAccessibleButton = (el) => {
+        if (!el.hasAttribute('role')) el.setAttribute('role', 'button');
+        if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+
+        el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                el.click();
+            }
+        });
+    };
+
+    const addLabels = () => {
+        document.querySelectorAll('.window-button').forEach(btn => {
+            if (btn.classList.contains('close')) {
+                btn.setAttribute('aria-label', 'Close Window');
+            } else if (btn.textContent.trim() === '_') {
+                btn.setAttribute('aria-label', 'Minimize Window');
+            } else if (btn.textContent.trim() === '□') {
+                btn.setAttribute('aria-label', 'Maximize Window');
+            }
+        });
+    };
+
+    const elements = document.querySelectorAll('.icon, .start-button, .window-button, .start-menu-item');
+    elements.forEach(makeAccessibleButton);
+    addLabels();
+});

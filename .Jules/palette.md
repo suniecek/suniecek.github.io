@@ -1,0 +1,4 @@
+
+## 2024-05-18 - Accessibility on Custom Retro OS Elements
+**Learning:** Retro desktop UIs that mimic operating systems often rely heavily on generic `div` tags for interactive elements like desktop icons, taskbar buttons, start menus, and window controls to achieve highly specific visual layouts and states. This architectural trade-off completely degrades native accessibility, stripping away screen reader roles, focusability, and default keyboard event handling.
+**Action:** When working on similar custom "OS-like" interfaces, proactively implement dynamic DOM initialization scripts that inject `role="button"`, `tabindex="0"`, descriptive `aria-label`s, and explicit `keydown` listeners (for `Space` and `Enter` with `e.preventDefault()`) to ensure these visual components function semantically as interactive buttons without disrupting the intended styling.
