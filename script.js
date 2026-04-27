@@ -166,11 +166,31 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+ const nameInput = document.getElementById('guestName');
+ const messageInput = document.getElementById('guestMessage');
+ const errorContainer = document.getElementById('guestbookError');
+ const name = nameInput.value.trim();
+ const message = messageInput.value.trim();
+
+ // Reset error states
+ errorContainer.style.display = 'none';
+ errorContainer.textContent = '';
+ nameInput.removeAttribute('aria-invalid');
+ nameInput.style.border = '';
+ messageInput.removeAttribute('aria-invalid');
+ messageInput.style.border = '';
 
  if (!name || !message) {
- alert('please fill in both fields!');
+ errorContainer.textContent = 'please fill in both fields!';
+ errorContainer.style.display = 'block';
+ if (!name) {
+ nameInput.setAttribute('aria-invalid', 'true');
+ nameInput.style.border = '2px solid #ff6b6b';
+ }
+ if (!message) {
+ messageInput.setAttribute('aria-invalid', 'true');
+ messageInput.style.border = '2px solid #ff6b6b';
+ }
  return;
  }
 
