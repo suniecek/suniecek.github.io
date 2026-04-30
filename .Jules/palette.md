@@ -1,0 +1,3 @@
+## 2024-04-30 - Replace blocking form alert with accessible inline validation
+**Learning:** Found that the custom guestbook UI relied on an inaccessible `alert()` dialog which blocked interaction and screen readers. Additionally, text inputs relied solely on visual placeholders rather than accessible names.
+**Action:** Replaced the `alert()` dialog with a semantic `<div role="alert" aria-live="assertive">` container for inline error feedback, added `aria-invalid="true"` coupled with visual error boundaries for specific failing inputs, and ensured `aria-label` attributes were added to inputs that lacked them. This ensures non-visual users have full context of validation failures.
