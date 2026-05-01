@@ -1,0 +1,3 @@
+## 2024-05-01 - Guestbook Inline Validation
+**Learning:** This app frequently relies on browser `alert()` dialogs for form validation, which block the UI and are not accessible to screen readers, while causing the app to freeze in visual regression tests.
+**Action:** Replace `alert()` validations with dynamically injected, inline error containers. Ensure the error container has `role="alert"` and `aria-live="assertive"` for screen reader awareness. Also, apply visual cues (like an inline `border: 1px solid red`) and `aria-invalid="true"` to the specific inputs missing required data. Clear these styles when input is valid.
