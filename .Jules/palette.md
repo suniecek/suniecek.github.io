@@ -1,0 +1,3 @@
+## 2024-05-02 - Replace blocking alert() dialogs with accessible inline errors
+**Learning:** Modern UX and accessibility best practices dictate avoiding blocking `alert()` dialogs for form validation. They are disruptive, not well-supported by all assistive technologies, and can cause test automation to hang if not explicitly dismissed.
+**Action:** When verifying user inputs, use an inline error container dynamically populated by JavaScript. Ensure the container has `role="alert"` and `aria-live="assertive"`. For the invalid inputs, apply visual cues (like a red border) and inject `aria-invalid="true"` so screen readers can properly announce the validation failure. Reset these states upon subsequent submissions.
