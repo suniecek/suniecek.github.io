@@ -1,0 +1,3 @@
+## 2023-10-27 - Aria labels on form elements without visible labels
+**Learning:** In applications aiming for a specific visual aesthetic (like this retro desktop), traditional visible `<label>` elements are sometimes omitted to preserve the design layout. Relying solely on `placeholder` attributes or surrounding visual context is insufficient for screen reader users.
+**Action:** Use the `aria-label` attribute directly on form controls (like `<input>`, `<textarea>`, `<select>`) when a visible `<label>` would break the intended design, ensuring screen readers can announce the purpose of the input without altering the visual presentation.
