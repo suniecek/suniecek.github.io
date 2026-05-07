@@ -169,8 +169,27 @@
  const name = document.getElementById('guestName').value.trim();
  const message = document.getElementById('guestMessage').value.trim();
 
+ const errorContainer = document.getElementById('guestbookError');
+ const nameInput = document.getElementById('guestName');
+ const messageInput = document.getElementById('guestMessage');
+
+ // Reset error states
+ errorContainer.textContent = '';
+ nameInput.removeAttribute('aria-invalid');
+ nameInput.style.border = '';
+ messageInput.removeAttribute('aria-invalid');
+ messageInput.style.border = '';
+
  if (!name || !message) {
- alert('please fill in both fields!');
+ errorContainer.textContent = 'Please fill in both fields to sign the guestbook!';
+ if (!name) {
+ nameInput.setAttribute('aria-invalid', 'true');
+ nameInput.style.border = '1px solid red';
+ }
+ if (!message) {
+ messageInput.setAttribute('aria-invalid', 'true');
+ messageInput.style.border = '1px solid red';
+ }
  return;
  }
 
