@@ -165,6 +165,10 @@
  });
 
  // Guestbook
+ document.getElementById('guestMessage').addEventListener('input', function() {
+ document.getElementById('messageCount').textContent = `${this.value.length}/500`;
+ });
+
  function addGuestbookEntry() {
  const name = document.getElementById('guestName').value.trim();
  const message = document.getElementById('guestMessage').value.trim();
@@ -192,6 +196,7 @@
 
  document.getElementById('guestName').value = '';
  document.getElementById('guestMessage').value = '';
+ document.getElementById('messageCount').textContent = '0/500';
  }
 
  function escapeHtml(text) {
