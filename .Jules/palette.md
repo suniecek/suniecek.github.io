@@ -1,0 +1,3 @@
+## 2025-01-20 - Inline Form Validation
+**Learning:** Replaced a disruptive `alert()` dialog with a DOM-based inline validation message using the `role="alert"` and `aria-live="assertive"` attributes. This pattern avoids hanging automated tests, drastically improves user experience by directly indicating which fields require attention (via red borders), and communicates the error context explicitly to screen readers.
+**Action:** Always favor inline validation over `alert()` dialogs in browser-based forms. Combine visual cues (like colored borders) with accessibility attributes (`aria-invalid="true"`) to ensure the state change is perceivable by all users.
