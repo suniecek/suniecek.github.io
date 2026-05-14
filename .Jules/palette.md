@@ -1,0 +1,3 @@
+## 2024-05-14 - Replace disruptive alerts with accessible inline validation
+**Learning:** The legacy codebase heavily relies on blocking `alert()` calls for form validation (e.g., Guestbook submission). While functional, this is highly disruptive to user flow and problematic for accessibility. Screen readers and Playwright tests can struggle with or block on `alert()` dialogs if not specifically handled.
+**Action:** When modernizing micro-UX for forms, always replace blocking `alert()` validation with inline error states using `aria-invalid="true"` and an `aria-live="assertive"` container, providing immediate, non-blocking feedback.
