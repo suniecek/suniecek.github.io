@@ -169,10 +169,31 @@
  const name = document.getElementById('guestName').value.trim();
  const message = document.getElementById('guestMessage').value.trim();
 
+ const errorDiv = document.getElementById('guestbookError');
+ const nameInput = document.getElementById('guestName');
+ const messageInput = document.getElementById('guestMessage');
+
+ // Reset visual state before validation
+ nameInput.removeAttribute('aria-invalid');
+ nameInput.style.border = '';
+ messageInput.removeAttribute('aria-invalid');
+ messageInput.style.border = '';
+
  if (!name || !message) {
- alert('please fill in both fields!');
+ errorDiv.textContent = 'Please fill in both your name and message!';
+ errorDiv.style.display = 'block';
+ if (!name) { nameInput.setAttribute('aria-invalid', 'true'); nameInput.style.border = '2px solid red'; }
+ if (!message) { messageInput.setAttribute('aria-invalid', 'true'); messageInput.style.border = '2px solid red'; }
  return;
  }
+
+ // Clear errors on success
+ errorDiv.style.display = 'none';
+ errorDiv.textContent = '';
+ nameInput.removeAttribute('aria-invalid');
+ nameInput.style.border = '';
+ messageInput.removeAttribute('aria-invalid');
+ messageInput.style.border = '';
 
  const entry = document.createElement('div');
  entry.className = 'guestbook-entry';
