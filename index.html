@@ -175,8 +175,9 @@
  <div class="window-content">
  <div class="guestbook-form">
  <h3>sign my guestbook! </h3>
- <input type="text" id="guestName" placeholder="your name" maxlength="50">
- <textarea id="guestMessage" placeholder="leave a message..." rows="3" maxlength="500"></textarea>
+ <div id="guestbookError" role="alert" aria-live="assertive" style="color: red; margin-bottom: 10px; font-size: 14px; min-height: 20px;"></div>
+ <input type="text" id="guestName" placeholder="your name" maxlength="50" aria-label="Name">
+ <textarea id="guestMessage" placeholder="leave a message..." rows="3" maxlength="500" aria-label="Message"></textarea>
  <button onclick="addGuestbookEntry()">sign! ✍️</button>
  </div>
  <div class="guestbook-entries" id="guestbookEntries">
