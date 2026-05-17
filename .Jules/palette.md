@@ -1,0 +1,3 @@
+## 2025-05-17 - Replace blocking alert with inline validation in guestbook
+**Learning:** Native `alert()` dialogs severely block user workflows and create harsh accessibility disruptions. For forms built inside simulated desktop UI windows, utilizing an inline error container (`role="alert"`, `aria-live="assertive"`) combined with explicit visual cues (red borders) and semantic tags (`aria-invalid="true"`) provides a much more accessible and polished experience.
+**Action:** When performing form validation on custom simulated windows, avoid `alert()` and implement accessible inline validation by directly targeting fields with JS and populating a dedicated aria-live error container.
