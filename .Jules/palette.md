@@ -1,0 +1,3 @@
+## 2026-05-20 - Guestbook Inline Validation
+**Learning:** Browser `alert()` dialogs used for form validation create a jarring, inaccessible experience as they block UI interaction and can confuse screen reader users. The application previously relied on an `alert()` for empty guestbook submissions.
+**Action:** Replaced the `alert()` with an inline error container (`role="alert"`, `aria-live="assertive"`) and visually indicated the missing fields using a `2px solid red` border combined with the `aria-invalid="true"` attribute. Also added missing `aria-label` attributes to the inputs which previously relied entirely on visual placeholders.
