@@ -1,0 +1,3 @@
+## 2025-02-18 - Improved Guestbook Form Validation
+**Learning:** Replaced blocking alert dialogs with inline error messages using `role="alert"`, `aria-live="assertive"`, and `aria-invalid` for better screen reader compatibility and a smoother user experience. Added `aria-label` attributes to the input fields because they previously relied solely on placeholder text for visual labeling, which is not fully accessible.
+**Action:** Use inline error text with appropriate ARIA attributes for form validation instead of `alert()` dialogs. Always ensure inputs that visually rely on placeholders have explicit `aria-label` attributes.
