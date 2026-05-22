@@ -658,3 +658,39 @@
                 }
             }
         }
+
+// --- Accessibility: Desktop Keyboard Navigation ---
+document.addEventListener('DOMContentLoaded', function() {
+    // Make desktop icons keyboard accessible
+    const icons = document.querySelectorAll('.icon');
+    icons.forEach(icon => {
+        icon.setAttribute('role', 'button');
+        icon.setAttribute('tabindex', '0');
+        // Derive aria-label from the icon-label text if present
+        const labelEl = icon.querySelector('.icon-label');
+        if (labelEl && labelEl.textContent) {
+            icon.setAttribute('aria-label', 'Open ' + labelEl.textContent.trim());
+        }
+
+        icon.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                icon.click();
+            }
+        });
+    });
+
+    // Make taskbar Start button keyboard accessible
+    const startButton = document.querySelector('.start-button');
+    if (startButton) {
+        startButton.setAttribute('role', 'button');
+        startButton.setAttribute('tabindex', '0');
+        startButton.setAttribute('aria-label', 'Start menu');
+        startButton.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                startButton.click();
+            }
+        });
+    }
+});
