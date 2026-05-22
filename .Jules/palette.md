@@ -1,0 +1,3 @@
+## 2024-05-22 - Desktop OS Keyboard Accessibility
+**Learning:** The application heavily relies on custom `div` elements to simulate a retro desktop OS look (e.g., `.icon`, `.start-button`), lacking native `<button>` tags. This inherently degrades accessibility as it strips out focus capability, keyboard events (Enter/Space), and screen reader support without explicit ARIA configurations.
+**Action:** Always inject `role="button"`, `tabindex="0"`, `aria-label`, and custom `keydown` handlers (with `e.preventDefault()` for Space) when working with custom interactive divs like desktop icons and taskbar elements to restore native accessibility features while preserving visual fidelity within strict CSS constraints.
