@@ -192,6 +192,7 @@
 
  document.getElementById('guestName').value = '';
  document.getElementById('guestMessage').value = '';
+ if (document.getElementById('guestMessageCounter')) document.getElementById('guestMessageCounter').textContent = '0/500';
  }
 
  function escapeHtml(text) {
