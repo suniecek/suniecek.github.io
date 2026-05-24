@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessible Character Counters
+**Learning:** Adding `aria-live="polite"` to a dynamic character counter announces every keystroke to screen reader users, which can be overly "chatty". However, semantically linking the counter element to the input using the `aria-describedby` attribute ensures proper context and screen reader support without excessive noise if `aria-live` is managed carefully or omitted for rapid inputs.
+**Action:** When implementing helper text like character counters for inputs (e.g., `<textarea>`), always semantically link the counter element to the input using the `aria-describedby` attribute.
