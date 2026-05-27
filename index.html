@@ -175,8 +175,8 @@
  <div class="window-content">
  <div class="guestbook-form">
  <h3>sign my guestbook! </h3>
- <input type="text" id="guestName" placeholder="your name" maxlength="50">
- <textarea id="guestMessage" placeholder="leave a message..." rows="3" maxlength="500"></textarea>
+ <input type="text" id="guestName" aria-label="Guest Name" placeholder="your name" maxlength="50">
+ <textarea id="guestMessage" aria-label="Guest Message" placeholder="leave a message..." rows="3" maxlength="500"></textarea>
  <button onclick="addGuestbookEntry()">sign! ✍️</button>
  </div>
  <div class="guestbook-entries" id="guestbookEntries">
@@ -336,7 +336,7 @@
  
  <div style="margin-top: 10px; font-size: 11px; font-weight: bold; margin-bottom: 8px;">✧ Color Wheel ✧</div>
  <div style="display: flex; align-items: center; gap: 10px;">
- <input type="color" id="colorWheel" value="#000000" style="width: 60px; height: 40px; border: 2px solid #a0b0c0; border-radius: 4px; cursor: pointer;" onchange="setColorFromWheel()">
+ <input type="color" id="colorWheel" aria-label="Color Picker" value="#000000" style="width: 60px; height: 40px; border: 2px solid #a0b0c0; border-radius: 4px; cursor: pointer;" onchange="setColorFromWheel()">
  <span style="font-size: 11px; color: #666;">Pick any color! ☆</span>
  </div>
  </div>

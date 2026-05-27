@@ -1,0 +1,3 @@
+## 2023-11-21 - Accessible Form Validation and Labels
+**Learning:** The application relied on blocking `alert()` dialogs for form validation, which is inaccessible and interrupts the user flow. Furthermore, inputs relying only on visual placeholders for context lack semantic labels for screen readers.
+**Action:** Replaced `alert()` dialogs with inline validation using a generic `.error-message` injected into the form that has `role="alert"` and styled the invalid inputs with a red inline border and `aria-invalid="true"`. Also added `aria-label` to inputs that only use placeholders to convey their purpose to screen reader users.
