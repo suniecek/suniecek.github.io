@@ -1,0 +1,3 @@
+## 2024-05-28 - Replace blocking alerts with accessible inline validation
+**Learning:** Using `alert()` for form validation is a blocking anti-pattern that creates a poor and inaccessible user experience. Inputs that visually rely only on `placeholder` attributes are inaccessible to screen readers without explicit `aria-label`s.
+**Action:** Replace `alert()` with inline validation patterns by injecting dynamic error elements with `role="alert"`. Highlight invalid inputs visually (e.g., via inline style borders) and programmatically using `aria-invalid="true"`. Ensure inputs have `aria-label`s if they lack explicit `<label>` tags.
