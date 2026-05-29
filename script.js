@@ -165,17 +165,35 @@
  });
 
  // Guestbook
- function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+function addGuestbookEntry() {
+    const nameInput = document.getElementById('guestName');
+    const messageInput = document.getElementById('guestMessage');
+    const errorDiv = document.getElementById('guestbookError');
+    const name = nameInput.value.trim();
+    const message = messageInput.value.trim();
 
- if (!name || !message) {
- alert('please fill in both fields!');
- return;
- }
+    // Clear previous errors
+    if (errorDiv) errorDiv.textContent = '';
+    nameInput.style.border = '';
+    nameInput.removeAttribute('aria-invalid');
+    messageInput.style.border = '';
+    messageInput.removeAttribute('aria-invalid');
 
- const entry = document.createElement('div');
- entry.className = 'guestbook-entry';
+    if (!name || !message) {
+        if (errorDiv) errorDiv.textContent = 'Please fill in both fields!';
+        if (!name) {
+            nameInput.style.border = '2px solid red';
+            nameInput.setAttribute('aria-invalid', 'true');
+        }
+        if (!message) {
+            messageInput.style.border = '2px solid red';
+            messageInput.setAttribute('aria-invalid', 'true');
+        }
+        return;
+    }
+
+    const entry = document.createElement('div');
+    entry.className = 'guestbook-entry';
  
  const now = new Date();
  const dateStr = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
