@@ -1,0 +1,3 @@
+## 2024-06-03 - Replaced alert() with accessible inline validation in forms
+**Learning:** Using `alert()` for form validation is a blocking, inaccessible pattern that provides poor UX. Relying on alerts creates a jarring experience, particularly for screen reader users or those with cognitive disabilities, as the context of the error and the form itself are separated.
+**Action:** Replace `alert()` validations with accessible inline validation. Inject an error element with `role="alert"` near the invalid inputs, apply `aria-invalid="true"` to the problematic fields, and use distinct visual styling (e.g., inline red borders) to clearly indicate where the error occurred without blocking the user interface.
