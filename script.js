@@ -169,10 +169,33 @@
  const name = document.getElementById('guestName').value.trim();
  const message = document.getElementById('guestMessage').value.trim();
 
- if (!name || !message) {
- alert('please fill in both fields!');
- return;
+ const nameInput = document.getElementById('guestName');
+ const msgInput = document.getElementById('guestMessage');
+ let errorDiv = document.getElementById('guestbookError');
+ if (!errorDiv) {
+   errorDiv = document.createElement('div');
+   errorDiv.id = 'guestbookError';
+   errorDiv.setAttribute('role', 'alert');
+   errorDiv.style.color = 'red';
+   errorDiv.style.marginBottom = '10px';
+   errorDiv.style.fontSize = '14px';
+   nameInput.parentNode.insertBefore(errorDiv, nameInput);
  }
+
+ if (!name || !message) {
+   errorDiv.textContent = 'Please fill in both your name and message!';
+   nameInput.style.border = !name ? '2px solid red' : '';
+   if (!name) nameInput.setAttribute('aria-invalid', 'true'); else nameInput.removeAttribute('aria-invalid');
+   msgInput.style.border = !message ? '2px solid red' : '';
+   if (!message) msgInput.setAttribute('aria-invalid', 'true'); else msgInput.removeAttribute('aria-invalid');
+   return;
+ }
+
+ errorDiv.textContent = '';
+ nameInput.style.border = '';
+ nameInput.removeAttribute('aria-invalid');
+ msgInput.style.border = '';
+ msgInput.removeAttribute('aria-invalid');
 
  const entry = document.createElement('div');
  entry.className = 'guestbook-entry';
