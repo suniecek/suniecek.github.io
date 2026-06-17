@@ -1,0 +1,3 @@
+## 2024-06-17 - Replace Blocking Alerts with Inline Validation
+**Learning:** Found a pattern of using blocking `alert()` calls for simple form validation (like the guestbook). This is an inaccessible pattern that prevents users from seamlessly fixing their errors. Using standard colors like `#c04040` for borders works nicely without needing custom CSS.
+**Action:** When performing form validation on small components, instead of an `alert()`, dynamically insert a `role="alert"` error message above the input and visually flag empty inputs by applying a 2px solid `#c04040` inline style border, alongside setting `aria-invalid="true"`.
