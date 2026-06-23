@@ -166,11 +166,35 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+ const nameInput = document.getElementById('guestName');
+ const messageInput = document.getElementById('guestMessage');
+ const name = nameInput.value.trim();
+ const message = messageInput.value.trim();
+ const errorEl = document.getElementById('guestbookError');
+
+ // Clear previous errors
+ nameInput.style.border = '';
+ nameInput.removeAttribute('aria-invalid');
+ messageInput.style.border = '';
+ messageInput.removeAttribute('aria-invalid');
+ if (errorEl) {
+     errorEl.style.display = 'none';
+     errorEl.textContent = '';
+ }
 
  if (!name || !message) {
- alert('please fill in both fields!');
+ if (errorEl) {
+     errorEl.textContent = 'please fill in both fields!';
+     errorEl.style.display = 'block';
+ }
+ if (!name) {
+     nameInput.style.border = '1px solid #c04040';
+     nameInput.setAttribute('aria-invalid', 'true');
+ }
+ if (!message) {
+     messageInput.style.border = '1px solid #c04040';
+     messageInput.setAttribute('aria-invalid', 'true');
+ }
  return;
  }
 
@@ -205,6 +229,26 @@
  entries.unshift({ name, message, date });
  localStorage.setItem('guestbookEntries', JSON.stringify(entries));
  }
+
+ // Clear error on input
+ document.getElementById('guestName').addEventListener('input', function() {
+     this.style.border = '';
+     this.removeAttribute('aria-invalid');
+     const errorEl = document.getElementById('guestbookError');
+     const otherInput = document.getElementById('guestMessage');
+     if (errorEl && !otherInput.hasAttribute('aria-invalid')) {
+         errorEl.style.display = 'none';
+     }
+ });
+ document.getElementById('guestMessage').addEventListener('input', function() {
+     this.style.border = '';
+     this.removeAttribute('aria-invalid');
+     const errorEl = document.getElementById('guestbookError');
+     const otherInput = document.getElementById('guestName');
+     if (errorEl && !otherInput.hasAttribute('aria-invalid')) {
+         errorEl.style.display = 'none';
+     }
+ });
 
  function loadGuestbookEntries() {
  const entries = JSON.parse(localStorage.getItem('guestbookEntries') || '[]');
