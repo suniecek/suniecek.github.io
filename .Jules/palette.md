@@ -1,0 +1,3 @@
+## 2025-02-28 - Avoid blocking alerts for form validation
+**Learning:** Using `alert()` for form validation is a blocking pattern that is highly inaccessible for screen readers. It interrupts the user flow and doesn't clearly associate errors with the inputs.
+**Action:** Implemented an inline validation pattern. Replaced `alert()` with a hidden error container (`role="alert"`) that becomes visible. Empty inputs are visually highlighted with the standard `#c04040` red border and semantically marked using `aria-invalid="true"`. To reset state on valid submissions, clear the inline border style and remove the `aria-invalid` attribute.
