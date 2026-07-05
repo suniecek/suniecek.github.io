@@ -1,0 +1,3 @@
+## 2024-10-25 - Replace Alert Validation with Inline Errors
+**Learning:** Using `alert()` for form validation is a blocking, inaccessible pattern that provides a poor UX, particularly when testing with Playwright which can hang on unexpected dialogs. Additionally, when restricted from adding custom CSS, visual states can be applied using inline styling.
+**Action:** Replace `alert()` validations with inline error elements using `role="alert"`, applying `aria-invalid="true"` attributes to invalid inputs, and utilizing inline styles (e.g., standard red `#c04040` borders) for visual feedback. Ensure previous error states are cleared before validating again.
