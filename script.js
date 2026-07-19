@@ -166,13 +166,45 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+const nameInput = document.getElementById('guestName');
+const messageInput = document.getElementById('guestMessage');
+const name = nameInput.value.trim();
+const message = messageInput.value.trim();
 
- if (!name || !message) {
- alert('please fill in both fields!');
- return;
- }
+// Clear previous errors
+nameInput.style.border = '';
+nameInput.removeAttribute('aria-invalid');
+messageInput.style.border = '';
+messageInput.removeAttribute('aria-invalid');
+let errorMsg = document.getElementById('guestbook-error');
+if (errorMsg) errorMsg.remove();
+
+if (!name || !message) {
+  let errorText = '';
+  if (!name) {
+    nameInput.style.border = '2px solid #c04040';
+    nameInput.setAttribute('aria-invalid', 'true');
+    errorText += 'Name is required. ';
+  }
+  if (!message) {
+    messageInput.style.border = '2px solid #c04040';
+    messageInput.setAttribute('aria-invalid', 'true');
+    errorText += 'Message is required.';
+  }
+
+  errorMsg = document.createElement('div');
+  errorMsg.id = 'guestbook-error';
+  errorMsg.setAttribute('role', 'alert');
+  errorMsg.style.color = '#c04040';
+  errorMsg.style.marginBottom = '10px';
+  errorMsg.style.fontSize = '12px';
+  errorMsg.textContent = errorText;
+
+  const form = document.querySelector('.guestbook-form');
+  form.insertBefore(errorMsg, nameInput);
+
+  return;
+}
 
  const entry = document.createElement('div');
  entry.className = 'guestbook-entry';
