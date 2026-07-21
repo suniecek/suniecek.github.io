@@ -166,13 +166,47 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+    const nameInput = document.getElementById('guestName');
+    const messageInput = document.getElementById('guestMessage');
+    const name = nameInput.value.trim();
+    const message = messageInput.value.trim();
 
- if (!name || !message) {
- alert('please fill in both fields!');
- return;
- }
+    // Reset previous errors
+    nameInput.style.border = '';
+    nameInput.removeAttribute('aria-invalid');
+    messageInput.style.border = '';
+    messageInput.removeAttribute('aria-invalid');
+
+    let errorEl = document.getElementById('guestbookError');
+    if (errorEl) {
+        errorEl.remove();
+    }
+
+    if (!name || !message) {
+        if (!name) {
+            nameInput.style.border = '2px solid #c04040';
+            nameInput.setAttribute('aria-invalid', 'true');
+        }
+        if (!message) {
+            messageInput.style.border = '2px solid #c04040';
+            messageInput.setAttribute('aria-invalid', 'true');
+        }
+
+        const form = document.querySelector('.guestbook-form');
+        errorEl = document.createElement('div');
+        errorEl.id = 'guestbookError';
+        errorEl.setAttribute('role', 'alert');
+        errorEl.style.color = '#c04040';
+        errorEl.style.fontSize = '12px';
+        errorEl.style.marginBottom = '8px';
+        errorEl.textContent = 'Please fill in both fields!';
+
+        // Insert before the button
+        const button = form.querySelector('button');
+        form.insertBefore(errorEl, button);
+
+        return;
+    }
 
  const entry = document.createElement('div');
  entry.className = 'guestbook-entry';
