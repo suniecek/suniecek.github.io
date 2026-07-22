@@ -1,0 +1,3 @@
+## 2025-01-24 - Accessibility for Isolated Form Inputs
+**Learning:** When line-change constraints prevent creating fully semantic explicit `<label>` tags (which often require extra wrapper divs or CSS styling adjustments), standard isolated `<input>` elements and icon-only `<button>`s without text should have `aria-label` added directly to them. This ensures screen reader accessibility for elements like the color wheel and mobile game controls.
+**Action:** Use `aria-label` directly on inputs and button controls when they lack accompanying text or explicit semantic labels, especially when working within tight codebase constraints.
