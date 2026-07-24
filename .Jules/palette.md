@@ -1,0 +1,3 @@
+## 2024-05-19 - Replacing Blocking Alerts with Inline Validation
+**Learning:** Using `alert()` for form validation is a pervasive but inaccessible pattern that blocks interaction and breaks screen reader flow. Users find it intrusive, and it offers poor UX compared to contextual error messages.
+**Action:** Always replace `alert()` validation with accessible inline validation. Inject an error element with `role="alert"`, apply `aria-invalid="true"` to offending inputs, and provide distinct visual styling (e.g., inline `#c04040` borders). Ensure previous error states are cleared before re-validating.
