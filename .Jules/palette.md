@@ -1,0 +1,3 @@
+## 2024-05-19 - Replaced Form Alert with Accessible Inline Validation
+**Learning:** Using `alert()` for form validation is a blocking, inaccessible anti-pattern. While it might prevent invalid submissions, it fails to provide clear, persisting visual feedback or proper context to screen readers about which fields need correction.
+**Action:** Instead of `alert()`, implement inline validation. Dynamically inject an error element with `role="alert"` (for immediate screen reader announcement) and mark invalid input elements with `aria-invalid="true"` alongside a distinct visual cue (like a red border `#c04040`). Clear these states appropriately upon resubmission.
