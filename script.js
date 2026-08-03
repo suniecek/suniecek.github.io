@@ -166,13 +166,34 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+    const nameInput = document.getElementById('guestName');
+    const messageInput = document.getElementById('guestMessage');
+    const errorContainer = document.getElementById('guestbookError');
 
- if (!name || !message) {
- alert('please fill in both fields!');
- return;
- }
+    const name = nameInput.value.trim();
+    const message = messageInput.value.trim();
+
+    // Clear previous errors
+    if (errorContainer) errorContainer.textContent = '';
+    nameInput.style.border = '';
+    nameInput.removeAttribute('aria-invalid');
+    messageInput.style.border = '';
+    messageInput.removeAttribute('aria-invalid');
+
+    if (!name || !message) {
+        if (errorContainer) {
+            errorContainer.textContent = 'Please fill in both your name and a message!';
+        }
+        if (!name) {
+            nameInput.style.border = '2px solid #c04040';
+            nameInput.setAttribute('aria-invalid', 'true');
+        }
+        if (!message) {
+            messageInput.style.border = '2px solid #c04040';
+            messageInput.setAttribute('aria-invalid', 'true');
+        }
+        return;
+    }
 
  const entry = document.createElement('div');
  entry.className = 'guestbook-entry';
