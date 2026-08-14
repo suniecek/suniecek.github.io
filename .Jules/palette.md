@@ -1,0 +1,3 @@
+## 2026-08-14 - Inline Form Validation
+**Learning:** Replacing blocking `alert()` calls with inline validation messages (`role="alert"`) and visual cues (`aria-invalid="true"` and border colors) significantly improves accessibility and user experience without changing existing HTML structure. Using a standard color hex value (like #c04040) directly in inline styles allows styling without adding new CSS classes.
+**Action:** Always prefer inline accessible errors and clearing them automatically on subsequent tries over native browser alerts for form validation. When adding visual validation boundaries, implement clearing logic by setting the inline style to empty (e.g. `.style.border = ''`) to restore default styling.
