@@ -164,13 +164,46 @@
  draggedWindow = null;
  });
 
- // Guestbook
+  // Guestbook
  function addGuestbookEntry() {
  const name = document.getElementById('guestName').value.trim();
  const message = document.getElementById('guestMessage').value.trim();
 
+ // Reset previous validation states
+ document.getElementById('guestName').style.border = '';
+ document.getElementById('guestMessage').style.border = '';
+ document.getElementById('guestName').removeAttribute('aria-invalid');
+ document.getElementById('guestMessage').removeAttribute('aria-invalid');
+
+ // Remove existing error message if any
+ const existingError = document.querySelector('.guestbook-form .validation-error');
+ if (existingError) {
+ existingError.remove();
+ }
+
  if (!name || !message) {
- alert('please fill in both fields!');
+ // Inline validation
+ if (!name) {
+ document.getElementById('guestName').style.border = '2px solid #c04040';
+ document.getElementById('guestName').setAttribute('aria-invalid', 'true');
+ }
+ if (!message) {
+ document.getElementById('guestMessage').style.border = '2px solid #c04040';
+ document.getElementById('guestMessage').setAttribute('aria-invalid', 'true');
+ }
+
+ const errorMsg = document.createElement('div');
+ errorMsg.className = 'validation-error';
+ errorMsg.style.color = '#c04040';
+ errorMsg.style.fontSize = '12px';
+ errorMsg.style.marginTop = '5px';
+ errorMsg.style.fontWeight = 'bold';
+ errorMsg.setAttribute('role', 'alert');
+ errorMsg.textContent = 'Please fill in both name and message!';
+
+ const form = document.querySelector('.guestbook-form');
+ form.insertBefore(errorMsg, document.getElementById('guestName'));
+
  return;
  }
 
