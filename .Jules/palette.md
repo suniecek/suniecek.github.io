@@ -1,0 +1,3 @@
+## 2024-05-18 - Added `aria-label` attributes to icon-only and system buttons
+**Learning:** For custom-built window components (minimize, maximize, close) and icon-based game controls, it is critical to explicitly provide `aria-label`s. Because these buttons use visual symbols (e.g. `_`, `□`, `×`, `↑`) without text content, screen readers may misinterpret or fail to announce their functions, leading to poor accessibility for visually impaired users.
+**Action:** Always add descriptive `aria-label` attributes to any icon-only buttons, window control buttons, and specific input elements (like color pickers or plain text fields) that lack explicit `<label>` tags. This ensures that the function of the button or input is conveyed cleanly to assistive technologies.
