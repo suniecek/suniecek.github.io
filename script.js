@@ -169,10 +169,40 @@
  const name = document.getElementById('guestName').value.trim();
  const message = document.getElementById('guestMessage').value.trim();
 
- if (!name || !message) {
- alert('please fill in both fields!');
- return;
- }
+ const nameInput = document.getElementById('guestName');
+  const messageInput = document.getElementById('guestMessage');
+  const errorContainer = document.getElementById('guestbookError');
+
+  if (!errorContainer) {
+    const errorDiv = document.createElement('div');
+    errorDiv.id = 'guestbookError';
+    errorDiv.setAttribute('role', 'alert');
+    errorDiv.style.color = '#c04040';
+    errorDiv.style.fontSize = '12px';
+    errorDiv.style.marginBottom = '10px';
+    const form = document.querySelector('.guestbook-form');
+    form.insertBefore(errorDiv, form.querySelector('button'));
+  }
+
+  // Reset states
+  nameInput.style.border = '';
+  nameInput.removeAttribute('aria-invalid');
+  messageInput.style.border = '';
+  messageInput.removeAttribute('aria-invalid');
+  document.getElementById('guestbookError').textContent = '';
+
+  if (!name || !message) {
+    document.getElementById('guestbookError').textContent = 'Please fill in both fields!';
+    if (!name) {
+      nameInput.style.border = '1px solid #c04040';
+      nameInput.setAttribute('aria-invalid', 'true');
+    }
+    if (!message) {
+      messageInput.style.border = '1px solid #c04040';
+      messageInput.setAttribute('aria-invalid', 'true');
+    }
+    return;
+  }
 
  const entry = document.createElement('div');
  entry.className = 'guestbook-entry';
