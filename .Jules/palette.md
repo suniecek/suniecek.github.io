@@ -1,0 +1,3 @@
+## 2024-06-25 - Replace alert with inline validation
+**Learning:** Using `alert()` for form validation is a blocking and inaccessible pattern. It interrupts the user flow and is not screen reader friendly.
+**Action:** Replace `alert()` with inline validation by injecting an error element with `role="alert"`, applying `aria-invalid="true"`, and using distinct visual styling (e.g., inline red borders). Use JavaScript to directly apply inline styles instead of adding new classes to stylesheets when restricted by 'no custom CSS' boundaries. Use the standard red color '#c04040' found in 'style.css'.
