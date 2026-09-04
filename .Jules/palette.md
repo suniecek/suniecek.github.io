@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessibility for Icon-Only and Isolated Elements
+**Learning:** When facing tight line-change constraints or avoiding creating explicit `<label>` tags, providing `aria-label` attributes directly on isolated `<input>` elements (like text inputs and color pickers) and icon-only `<button>`s (like the Snail Game controls and window management buttons) is a simple and effective way to ensure these elements are properly announced by screen readers.
+**Action:** When creating or modifying inputs without visible text labels or buttons that only contain icons/symbols, always include an `aria-label` attribute describing their purpose or action to maintain accessibility.
