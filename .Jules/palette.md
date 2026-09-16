@@ -1,0 +1,3 @@
+## 2024-05-24 - Inline Form Validation
+**Learning:** Using `alert()` for form validation is a blocking pattern that degrades UX and accessibility, especially for screen reader users. In vanilla JS applications lacking a framework, inline validation is a much more robust approach.
+**Action:** When validating form inputs, dynamically inject an error message element with `role="alert"` before the inputs, and visually highlight invalid fields using inline styles (e.g., `border: 1px solid #c04040`) and the `aria-invalid="true"` attribute. Always remember to clear these states on successful submission or subsequent validation attempts.
