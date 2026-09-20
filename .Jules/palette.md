@@ -1,0 +1,3 @@
+## 2024-05-24 - Guestbook Error Validation
+**Learning:** Native `alert()` dialogs are generally poor for UX and accessibility since they are blocking and can be visually disruptive or confusing for screen readers. Replacing them with clear, inline validation provides a much better user experience.
+**Action:** When implementing form validation, avoid native `alert()` completely. Instead, use an inline `<div role="alert">` element to announce the error state and visually identify the invalid fields (e.g., using `aria-invalid` and a colored border). Also, always ensure all form fields have descriptive `aria-label` attributes or explicit `<label>` tags.
