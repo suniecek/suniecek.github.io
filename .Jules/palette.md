@@ -1,0 +1,3 @@
+## 2025-02-18 - Replace blocking alert() with accessible inline validation
+**Learning:** Using `alert()` for form validation creates a blocking and inaccessible experience, especially for screen reader users. It forces the user to clear a dialog without contextually guiding them to the specific fields that need correction.
+**Action:** Replace `alert()` dialogs with inline validation patterns by injecting an error message element with `role="alert"` and styling the problematic inputs (e.g., adding red borders and `aria-invalid="true"`). Clear these states before re-validating to ensure the UI remains accurate and accessible.
