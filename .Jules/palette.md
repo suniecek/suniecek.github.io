@@ -1,0 +1,3 @@
+## 2024-06-25 - Replace blocking alert() with accessible inline validation
+**Learning:** Using `alert()` for form validation is an inaccessible pattern that blocks interaction and provides poor UX. Applying dynamic inline error messages using `role="alert"` alongside visual border indicators and `aria-invalid="true"` significantly improves usability and screen reader support without interrupting the user flow.
+**Action:** Always replace blocking `alert()` calls in form submission paths with an accessible inline validation pattern that includes an explicit error `div`, visual cues, and ARIA attributes for inputs.
