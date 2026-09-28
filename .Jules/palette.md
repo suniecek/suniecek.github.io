@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessible Inline Validation vs Blocking Alerts
+**Learning:** Using `alert()` for form validation is a blocking, inaccessible pattern. Implementing inline validation by injecting an error element with `role="alert"`, applying `aria-invalid="true"`, and styling the elements directly (e.g., inline red borders) provides a significantly better user experience and screen reader support without disrupting user flow.
+**Action:** Always replace blocking `alert()` calls for form validation with accessible inline error messages and visual cues (like `#c04040` red borders and `aria-invalid="true"`) directly next to the relevant inputs. Ensure temporary error states are cleared upon subsequent valid attempts.
