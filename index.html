@@ -175,8 +175,9 @@
  <div class="window-content">
  <div class="guestbook-form">
  <h3>sign my guestbook! </h3>
- <input type="text" id="guestName" placeholder="your name" maxlength="50">
- <textarea id="guestMessage" placeholder="leave a message..." rows="3" maxlength="500"></textarea>
+ <div id="guestbookError" role="alert" style="color: #c04040; display: none; font-size: 0.9em; margin-bottom: 8px;">please fill in both fields!</div>
+ <input type="text" id="guestName" placeholder="your name" maxlength="50" aria-label="Name" oninput="this.style.border=''; this.removeAttribute('aria-invalid'); document.getElementById('guestbookError').style.display='none';">
+ <textarea id="guestMessage" placeholder="leave a message..." rows="3" maxlength="500" aria-label="Message" oninput="this.style.border=''; this.removeAttribute('aria-invalid'); document.getElementById('guestbookError').style.display='none';"></textarea>
  <button onclick="addGuestbookEntry()">sign! ✍️</button>
  </div>
  <div class="guestbook-entries" id="guestbookEntries">
