@@ -166,13 +166,48 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+ const nameInput = document.getElementById('guestName');
+ const messageInput = document.getElementById('guestMessage');
+ const name = nameInput.value.trim();
+ const message = messageInput.value.trim();
+
+ // Handle inline validation
+ let errorDiv = document.getElementById('guestbookError');
+ if (!errorDiv) {
+ errorDiv = document.createElement('div');
+ errorDiv.id = 'guestbookError';
+ errorDiv.setAttribute('role', 'alert');
+ errorDiv.style.color = '#c04040';
+ errorDiv.style.fontSize = '12px';
+ errorDiv.style.marginBottom = '10px';
+ nameInput.parentNode.insertBefore(errorDiv, nameInput);
+ }
 
  if (!name || !message) {
- alert('please fill in both fields!');
+ errorDiv.textContent = 'Please fill in both your name and a message!';
+ if (!name) {
+ nameInput.setAttribute('aria-invalid', 'true');
+ nameInput.style.borderColor = '#c04040';
+ } else {
+ nameInput.removeAttribute('aria-invalid');
+ nameInput.style.borderColor = '';
+ }
+ if (!message) {
+ messageInput.setAttribute('aria-invalid', 'true');
+ messageInput.style.borderColor = '#c04040';
+ } else {
+ messageInput.removeAttribute('aria-invalid');
+ messageInput.style.borderColor = '';
+ }
  return;
  }
+
+ // Clear validation state on success
+ errorDiv.textContent = '';
+ nameInput.removeAttribute('aria-invalid');
+ nameInput.style.borderColor = '';
+ messageInput.removeAttribute('aria-invalid');
+ messageInput.style.borderColor = '';
 
  const entry = document.createElement('div');
  entry.className = 'guestbook-entry';
@@ -190,9 +225,9 @@
 
  saveGuestbookEntry(name, message, dateStr);
 
- document.getElementById('guestName').value = '';
- document.getElementById('guestMessage').value = '';
- }
+ nameInput.value = '';
+ messageInput.value = '';
+}
 
  function escapeHtml(text) {
  const div = document.createElement('div');
