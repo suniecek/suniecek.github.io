@@ -1,0 +1,3 @@
+## 2024-05-24 - Replace Blocking Alert Dialogs with Inline Validation
+**Learning:** Using `alert()` for form validation is an inaccessible pattern that blocks screen readers and interrupts the user experience. Inline validation with `role="alert"` and visual border cues provides immediate, non-blocking feedback.
+**Action:** Always replace `alert()` dialogs used for validation with an inline error container (using `role="alert"`) and input error states (using `aria-invalid="true"`). Ensure visual cues like colored borders are added to help sighted users identify the specific fields needing attention.
