@@ -638,6 +638,11 @@
  font-size: 12px;
  }
 
+ .guestbook-form input[aria-invalid="true"],
+ .guestbook-form textarea[aria-invalid="true"] {
+ border-color: #c04040;
+ }
+
  .guestbook-form input:focus,
  .guestbook-form textarea:focus {
  outline: none;
