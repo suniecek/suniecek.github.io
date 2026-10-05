@@ -166,11 +166,43 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+ const nameInput = document.getElementById('guestName');
+ const messageInput = document.getElementById('guestMessage');
+ const name = nameInput.value.trim();
+ const message = messageInput.value.trim();
+
+ // Clear previous errors
+ nameInput.style.border = '';
+ nameInput.removeAttribute('aria-invalid');
+ messageInput.style.border = '';
+ messageInput.removeAttribute('aria-invalid');
+ const existingError = document.getElementById('guestbook-error');
+ if (existingError) {
+ existingError.remove();
+ }
 
  if (!name || !message) {
- alert('please fill in both fields!');
+ if (!name) {
+ nameInput.style.border = '2px solid #c04040';
+ nameInput.setAttribute('aria-invalid', 'true');
+ }
+ if (!message) {
+ messageInput.style.border = '2px solid #c04040';
+ messageInput.setAttribute('aria-invalid', 'true');
+ }
+
+ const errorMsg = document.createElement('div');
+ errorMsg.id = 'guestbook-error';
+ errorMsg.style.color = '#c04040';
+ errorMsg.style.marginTop = '5px';
+ errorMsg.style.fontSize = '12px';
+ errorMsg.setAttribute('role', 'alert');
+ errorMsg.textContent = 'Please fill in both fields!';
+
+ // Insert after textarea but before the button
+ const form = document.querySelector('.guestbook-form');
+ form.insertBefore(errorMsg, document.querySelector('.guestbook-form button'));
+
  return;
  }
 
