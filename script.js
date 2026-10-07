@@ -33,14 +33,20 @@
 
  // Start Menu
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
- }
+    const menu = document.getElementById('startMenu');
+    menu.classList.toggle('active');
+    const startBtn = document.querySelector('.start-button');
+    if(startBtn) {
+        startBtn.setAttribute('aria-expanded', menu.classList.contains('active'));
+    }
+}
 
  document.addEventListener('click', function(e) {
  const menu = document.getElementById('startMenu');
  const startButton = document.querySelector('.start-button');
  if (!menu.contains(e.target) && !startButton.contains(e.target)) {
  menu.classList.remove('active');
+ startButton.setAttribute('aria-expanded', 'false');
  }
  });
 
