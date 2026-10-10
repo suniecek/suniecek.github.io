@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessibility improvements for custom OS window elements
+**Learning:** In custom window management systems built with vanilla JS, `div` elements used as buttons (e.g., window controls, start menu items, desktop icons) must have `role="button"`, `tabindex="0"`, and explicit keyboard event listeners (handling Enter/Space keys) to be accessible. Also, `alert()` is poor UX for form validation and should be replaced with inline, accessible error messages.
+**Action:** When working on custom interactive elements, always ensure keyboard accessibility by adding `tabindex`, semantic roles, and keydown listeners to simulate clicks, and replace native blocking dialogs with inline ARIA-compliant alerts.
