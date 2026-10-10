@@ -1171,3 +1171,21 @@
             font-weight: 700;
             box-shadow: 0 0 12px rgba(137,247,254,0.6);
         }
+
+/* Accessibility focus styles */
+.icon:focus-visible,
+.start-menu-item:focus-visible,
+.window-button:focus-visible,
+.start-button:focus-visible,
+.taskbar-button:focus-visible,
+.game-button:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #5090c0;
+    outline-offset: 2px;
+}
+
+[aria-invalid="true"] {
+    border-color: #c04040 !important;
+}

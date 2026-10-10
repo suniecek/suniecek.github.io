@@ -170,7 +170,27 @@
  const message = document.getElementById('guestMessage').value.trim();
 
  if (!name || !message) {
- alert('please fill in both fields!');
+ const errorDiv = document.createElement('div');
+        errorDiv.role = 'alert';
+        errorDiv.className = 'error-message';
+        errorDiv.style.color = '#c04040';
+        errorDiv.style.fontSize = '12px';
+        errorDiv.style.marginTop = '5px';
+        errorDiv.textContent = 'Please fill in both fields!';
+
+        const existingError = document.getElementById('guestbookForm').querySelector('.error-message');
+        if (existingError) existingError.remove();
+
+        document.getElementById('guestbookForm').appendChild(errorDiv);
+
+        if (!name) document.getElementById('guestName').style.borderColor = '#c04040';
+        if (!message) document.getElementById('guestMessage').style.borderColor = '#c04040';
+
+        setTimeout(() => {
+            if (errorDiv.parentNode) errorDiv.remove();
+            document.getElementById('guestName').style.borderColor = '';
+            document.getElementById('guestMessage').style.borderColor = '';
+        }, 3000);
  return;
  }
 
@@ -658,3 +678,17 @@
                 }
             }
         }
+// Accessibility keyboard events
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const activeElement = document.activeElement;
+    if (activeElement.classList.contains('icon') ||
+        activeElement.classList.contains('start-menu-item') ||
+        activeElement.classList.contains('window-button') ||
+        activeElement.classList.contains('start-button') ||
+        activeElement.classList.contains('taskbar-button')) {
+      e.preventDefault();
+      activeElement.click();
+    }
+  }
+});
