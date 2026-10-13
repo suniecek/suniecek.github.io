@@ -170,9 +170,50 @@
  const message = document.getElementById('guestMessage').value.trim();
 
  if (!name || !message) {
- alert('please fill in both fields!');
- return;
- }
+        const nameInput = document.getElementById('guestName');
+        const messageInput = document.getElementById('guestMessage');
+
+        // Clear previous errors
+        const existingError = document.getElementById('guestbookError');
+        if (existingError) {
+            existingError.remove();
+        }
+        nameInput.removeAttribute('aria-invalid');
+        nameInput.style.borderColor = '';
+        messageInput.removeAttribute('aria-invalid');
+        messageInput.style.borderColor = '';
+
+        const errorDiv = document.createElement('div');
+        errorDiv.id = 'guestbookError';
+        errorDiv.setAttribute('role', 'alert');
+        errorDiv.style.color = '#c04040';
+        errorDiv.style.marginBottom = '10px';
+        errorDiv.style.fontSize = '14px';
+        errorDiv.textContent = 'please fill in both fields!';
+
+        const formContainer = document.querySelector('.guestbook-form');
+        formContainer.insertBefore(errorDiv, formContainer.children[1]);
+
+        if (!name) {
+            nameInput.setAttribute('aria-invalid', 'true');
+            nameInput.style.borderColor = '#c04040';
+        }
+        if (!message) {
+            messageInput.setAttribute('aria-invalid', 'true');
+            messageInput.style.borderColor = '#c04040';
+        }
+        return;
+    }
+
+    // Clear any previous error states on success
+    const existingError = document.getElementById('guestbookError');
+    if (existingError) {
+        existingError.remove();
+    }
+    document.getElementById('guestName').removeAttribute('aria-invalid');
+    document.getElementById('guestName').style.borderColor = '';
+    document.getElementById('guestMessage').removeAttribute('aria-invalid');
+    document.getElementById('guestMessage').style.borderColor = '';
 
  const entry = document.createElement('div');
  entry.className = 'guestbook-entry';
