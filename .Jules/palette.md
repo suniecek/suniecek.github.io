@@ -1,0 +1,3 @@
+## 2024-06-25 - Improve form validation UX and accessibility
+**Learning:** Blocking alerts for form validation disrupt the user flow and are not screen-reader friendly. Inputs without explicit `<label>` elements are also inaccessible to screen readers.
+**Action:** Replace blocking alerts with inline validation that clearly marks invalid fields (e.g., using red borders and `aria-invalid="true"`) and provides an explicit error message `div` with `role="alert"`. For isolated inputs where explicit `<label>` tags are difficult to add due to line-change constraints, use `aria-label` directly on the input elements to ensure accessibility.
