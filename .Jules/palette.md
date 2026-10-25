@@ -1,0 +1,3 @@
+## 2026-01-10 - Replacing blocking alerts with inline validation
+**Learning:** Using `alert()` for form validation is a major accessibility barrier and disrupts UX, especially for screen reader users. Screen readers often don't provide context to return to after dismissing an alert.
+**Action:** When creating form validation in vanilla JS without adding custom CSS classes, clear previous error states first, implement dynamic visual changes via DOM inline styles (e.g., `element.style.borderColor = '#c04040'`), add `aria-invalid="true"` to invalid inputs, insert a newly created error `div` with `role="alert"` so it is announced immediately, and programmatically shift focus to the first invalid element.
