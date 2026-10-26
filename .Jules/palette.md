@@ -1,0 +1,3 @@
+## 2024-05-23 - Keyboard accessibility for custom interactive elements
+**Learning:** In vanilla JS projects implementing custom window controls and desktop environments without native buttons, users relying on keyboards cannot access or activate features. Applying standard interactive attributes (tabindex, roles) isn't enough; custom 'Enter'/'Space' event handlers are required to bridge the gap.
+**Action:** Always ensure custom interactive elements have `role="button"`, `tabindex="0"`, appropriate `aria-label`/`aria-expanded`, and a global `keydown` event listener attached to trigger clicks on `Enter` and `Space` for full keyboard support.

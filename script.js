@@ -32,9 +32,16 @@
  });
 
  // Start Menu
+
  function toggleStartMenu() {
- document.getElementById('startMenu').classList.toggle('active');
+ const startMenu = document.getElementById('startMenu');
+ const startBtn = document.querySelector('.start-button');
+ const isActive = startMenu.classList.toggle('active');
+ if (startBtn) {
+     startBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
  }
+ }
+
 
  document.addEventListener('click', function(e) {
  const menu = document.getElementById('startMenu');
@@ -658,3 +665,10 @@
                 }
             }
         }
+// Keyboard accessibility for elements with role="button"
+document.addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.getAttribute('role') === 'button') {
+        e.preventDefault();
+        e.target.click();
+    }
+});
