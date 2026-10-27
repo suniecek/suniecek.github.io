@@ -1,0 +1,3 @@
+## 2026-01-10 - Replace blocking alert() with inline validation and ARIA attributes
+**Learning:** Using blocking `alert()` dialogues for form validation in custom vanilla JS form components provides a poor user experience and accessibility hurdles. Instead, inline validation using `role="alert"`, `aria-invalid="true"`, and clear color indicators like `#c04040` (without custom CSS classes to adhere to rules) is more intuitive and accessible.
+**Action:** Replace `alert()` with an inline error container. Ensure explicitly resetting error borders and `aria-invalid` states prior to re-validating. Apply `aria-label` directly to form inputs where standard labels are difficult to place without layout changes.
