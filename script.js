@@ -166,11 +166,37 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+ const nameInput = document.getElementById('guestName');
+ const messageInput = document.getElementById('guestMessage');
+ const name = nameInput.value.trim();
+ const message = messageInput.value.trim();
+
+ const existingAlert = document.getElementById('guestbook-alert');
+ if (existingAlert) existingAlert.remove();
+ nameInput.removeAttribute('aria-invalid');
+ nameInput.style.borderColor = '';
+ messageInput.removeAttribute('aria-invalid');
+ messageInput.style.borderColor = '';
 
  if (!name || !message) {
- alert('please fill in both fields!');
+ const alertDiv = document.createElement('div');
+ alertDiv.id = 'guestbook-alert';
+ alertDiv.setAttribute('role', 'alert');
+ alertDiv.style.color = '#c04040';
+ alertDiv.style.fontSize = '12px';
+ alertDiv.style.marginBottom = '10px';
+ alertDiv.textContent = 'please fill in both fields!';
+ nameInput.parentNode.insertBefore(alertDiv, nameInput);
+
+ if (!name) {
+ nameInput.setAttribute('aria-invalid', 'true');
+ nameInput.style.borderColor = '#c04040';
+ nameInput.focus();
+ } else if (!message) {
+ messageInput.setAttribute('aria-invalid', 'true');
+ messageInput.style.borderColor = '#c04040';
+ messageInput.focus();
+ }
  return;
  }
 
