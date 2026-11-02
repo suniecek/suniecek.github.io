@@ -1,0 +1,3 @@
+## 2024-05-13 - Add ARIA Labels to Icon-Only Buttons and Interactive Elements
+**Learning:** In a custom vanilla JS windowing system like this, many interactive elements (like window minimize/maximize/close controls, Start buttons, and icon-heavy game controls) rely purely on visual icons or minimal text (like 'x' or '□' or arrows). Without `aria-label` attributes, screen readers have no context for what these elements do.
+**Action:** Always ensure that icon-only `<button>` elements, or `<div>` elements acting as buttons (especially those with `onclick` handlers for core UI navigation like window management), have descriptive `aria-label` attributes to provide necessary context for assistive technologies.

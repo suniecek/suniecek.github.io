@@ -637,6 +637,7 @@
                 var btn = document.createElement('button');
                 btn.className = 'music-playlist-btn';
                 btn.textContent = (i + 1) + '. ' + songs[i].title;
+                btn.setAttribute('aria-label', 'Play ' + songs[i].title);
                 btn.setAttribute('data-song-index', i);
                 btn.onclick = function() {
                     window.playMusicSong(parseInt(this.getAttribute('data-song-index')));
