@@ -1,0 +1,3 @@
+## 2026-01-10 - Dynamic Inline Form Validation
+**Learning:** Replacing blocking `alert()` dialogues with accessible inline validation in a vanilla JS environment with strict CSS constraints can be achieved by dynamically inserting a `role="alert"` container and applying inline styles (`element.style.borderColor`), avoiding the need to modify `style.css` while improving UX and screen reader compatibility.
+**Action:** Use `parentNode.insertBefore` for relative positioning when dynamically adding error messages to ensure they are inserted correctly without relying on strict container structures. Clear prior error states before re-evaluating inputs.
