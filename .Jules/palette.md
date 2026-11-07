@@ -1,0 +1,3 @@
+## 2024-05-24 - Inline Form Validation Replacement for alert()
+**Learning:** Using `alert()` for form validation (like in the guestbook) is inaccessible and a poor UX since it blocks interaction and provides no persistent feedback. Screen readers can't associate the generic alert context with the form elements.
+**Action:** Replace `alert()` validations with an inline error `div` (using `role="alert"`), apply `aria-invalid="true"` directly to the invalid inputs, set their inline styles (e.g. `borderColor = '#c04040'`) to visually indicate the error without custom CSS classes, and programmatically set focus on the first invalid field.

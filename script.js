@@ -166,11 +166,45 @@
 
  // Guestbook
  function addGuestbookEntry() {
- const name = document.getElementById('guestName').value.trim();
- const message = document.getElementById('guestMessage').value.trim();
+ const nameInput = document.getElementById('guestName');
+ const messageInput = document.getElementById('guestMessage');
+ const name = nameInput.value.trim();
+ const message = messageInput.value.trim();
 
- if (!name || !message) {
- alert('please fill in both fields!');
+ nameInput.removeAttribute('aria-invalid');
+ nameInput.style.borderColor = '';
+ messageInput.removeAttribute('aria-invalid');
+ messageInput.style.borderColor = '';
+ let errorDiv = document.getElementById('guestbook-error');
+ if (errorDiv) errorDiv.textContent = '';
+
+ let hasError = false;
+ let firstInvalid = null;
+
+ if (!name) {
+ nameInput.setAttribute('aria-invalid', 'true');
+ nameInput.style.borderColor = '#c04040';
+ hasError = true;
+ firstInvalid = nameInput;
+ }
+ if (!message) {
+ messageInput.setAttribute('aria-invalid', 'true');
+ messageInput.style.borderColor = '#c04040';
+ hasError = true;
+ if (!firstInvalid) firstInvalid = messageInput;
+ }
+
+ if (hasError) {
+ if (!errorDiv) {
+ errorDiv = document.createElement('div');
+ errorDiv.id = 'guestbook-error';
+ errorDiv.setAttribute('role', 'alert');
+ errorDiv.style.color = '#c04040';
+ errorDiv.style.marginBottom = '10px';
+ nameInput.parentNode.insertBefore(errorDiv, nameInput);
+ }
+ errorDiv.textContent = 'please fill in both fields!';
+ firstInvalid.focus();
  return;
  }
 
@@ -190,8 +224,8 @@
 
  saveGuestbookEntry(name, message, dateStr);
 
- document.getElementById('guestName').value = '';
- document.getElementById('guestMessage').value = '';
+ nameInput.value = '';
+ messageInput.value = '';
  }
 
  function escapeHtml(text) {
