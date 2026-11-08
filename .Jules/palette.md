@@ -1,0 +1,3 @@
+## 2024-11-08 - Replace blocking alerts with inline validation
+**Learning:** Replacing blocking `alert()` dialogs with inline validation using a `div` with `role="alert"` and applying `aria-invalid="true"` (with explicit error border styling) significantly improves form accessibility. Screen readers announce the error immediately and focus can be safely managed, unlike native alerts which break the interaction flow and can hang UI tests.
+**Action:** When implementing form validation, always clear previous error states first, apply `aria-invalid="true"` and visual cues (like inline style red borders) to invalid inputs, insert a `role="alert"` container, and programmatically set focus on the first invalid input to guide the user.
